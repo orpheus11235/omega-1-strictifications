@@ -25,6 +25,8 @@
 \newtheorem{fact}[theorem]{Fact}
 \newtheorem{proposition}[theorem]{Proposition}
 
+\newtheorem{conjecture}[theorem]{Conjecture}
+
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 
@@ -53,6 +55,8 @@
 % names of categories
 \newcommand{\C}{\mathcal{C}}
 \newcommand{\D}{\mathcal{D}}
+\newcommand{\V}{\mathcal{V}}
+\newcommand{\W}{\mathcal{W}}
 
 \newcommand{\sset}{\text{sSet}}
 \newcommand{\stinfty}{\omega\text{Gpd}}
@@ -63,34 +67,37 @@
 \newcommand{\sabgroup}{\text{sAbGrp}}
 \newcommand{\qsset}{\mathcal{sSet}}
 \newcommand{\qstcom}{\mathcal{sTCom}}
+\newcommand{\grpd}{\text{Grpd}}
 %newer categories (this paper)
 \newcommand{\omegacat}{\omega\mathcal{Cat}}
 \newcommand{\omegancat}[1]{(\omega,#1)\mathcal{Cat}}
 \newcommand{\graycat}[1]{((\omega, #1)\mathcal{Cat})^\otimes{-}\mathcal{Cat}}
 \newcommand{\cartesiancat}[1]{((\omega, #1)\mathcal{Cat})^\times{-}\mathcal{Cat}}
-\newcommand{\graycatzero}{(\stinfty)^\otimes-\mathcal{Cat}}
-\newcommand{\cartesiancatzero}{(\stinfty)^\times-\mathcal{Cat}}
+\newcommand{\graycatzero}{(\stinfty)^\otimes\mathcal{Cat}}
+\newcommand{\cartesiancatzero}{(\stinfty)^\times\mathcal{Cat}}
 
-\newcommand{\cartcrossedcat}{(\crcom)^\times-\mathcal{Cat}}
-\newcommand{\tensorcrossedcat}{(\crcom)^\otimes-\mathcal{Cat}}
+\newcommand{\cartcrossedcat}{\crcom^\times\text{-}\mathcal{Cat}}
+\newcommand{\tensorcrossedcat}{\crcom^\otimes\text{-}\mathcal{Cat}}
 \newcommand{\tencart}[1]{\underline{#1}}
+\newcommand{\grpdcat}{\text{Grpd}\text{-}\mathcal{Cat}}
 
 \newcommand{\joyal}{\text{sSet}_{\mathcal{J}}}
 \newcommand{\bergner}{(\text{sSet})-\text{Cat}_{\mathcal{B}}}
-\newcommand{\ssetcat}{(\text{sSet})-\text{Cat}}
+\newcommand{\ssetcat}{\text{sSet}\text{-}\mathcal{Cat}}
 
 
 
 
 %misc
 \newcommand{\id}{\text{id}}
+\newcommand{\Id}{\text{Id}}
 \newcommand{\colim}{\emph{colim}}
 \newcommand{\holim}{\text{holim}}
 \newcommand{\dec}{\text{dec}}
 \newcommand{\ob}{\text{ob}}
 \newcommand{\del}{\partial}
-\newcommand{\W}{\mathcal{W}}
 \newcommand{\Ho}{\text{Ho}}
+\newcommand{\ho}{\text{ho}}
 \newcommand{\sus}{\Sigma}
 
 % names of functors. 
@@ -118,9 +125,14 @@
 \newcommand{\omeganrigidification}[1]{C_{(\omega,#1)}}
 \newcommand{\forgetcartesian}{R}
 \newcommand{\forcecartesian}{L}
+\newcommand{\leftone}{\st^{\text{loc}}}
+\newcommand{\rightone}{U^{\text{loc}}}
+\newcommand{\lefttwo}{\st^{\text{glo}}}
+\newcommand{\righttwo}{U^{\text{glo}}}
 \newcommand{\freeatom}[1]{\mathcal{F}\langle \text{at}{#1}\rangle}
 \newcommand{\takeapart}{\lambda}
 \newcommand{\puttogether}{\gamma}
+\newcommand{\hotwo}{\ho_{(2,1)}}
 
 
 \newcommand{\freecoalg}{\mathcal{F}_{\st}}
@@ -143,53 +155,168 @@
 \date{}
 
 %-------------------------------------------------------------------------------
-\title{\vspace{-1in} A Whitehead Theorem for $(\infty,1)$-categories\\ \vspace{.1in}}
+\title{\vspace{-1in} On the Strictification of $(\infty,1)$-categories\\ \vspace{.1in}}
 
 \maketitle
 %-------------------------------------------------------------------------------
 \section{Introduction}	
 	\TODO{ask tim porter if I'm neglecting any references. Good excuse to get some eyes on it.}
-	The singular homology of a space is one of the largest successes of algebraic topology: it is strong enough to distinguish many spaces, yet extremely computable for many spaces of interest. One of the most useful theorems in the day-to-day life of the algebraic topologists is \textit{Whitehead's homological theorem}, which asserts that homology is sufficient to detect whether or not a given map is a weak equivalence:
-	\begin{theorem}[Whitehead's Homological Theorem]
+	The singular homology of a space is one of the largest successes of algebraic topology: it is strong enough to distinguish many spaces from each other, yet frequently very computable. 
+	One of the most useful theorems in the day-to-day life of an algebraic topologist is the \textit{Homological Whitehead Theorem}, which asserts that homology is sufficient to detect whether or not a given map between simply connected spaces is a weak equivalence:
+	\begin{theorem}
 		Let $f:X \to Y$ be a map of simply connected CW complexes. Then if $f$ induces isomorphisms $H_n(X) \to H_n(Y)$ for all $n$, $f$ is a homotopy equivalence. 
 	\end{theorem}
-	Thus the study of whether two spaces can be continuously deformed into each other is partially reduced to calculating certain maps between abelian groups. This theorem is best thought of an amalgamation of multiple theorems: firstly, a purely topological piece
-	\begin{theorem}[Whitehead's Theorem]
+	Thus the study of whether two spaces can be continuously deformed into each other is partially reduced to calculating certain maps between abelian groups. This theorem really comes about as the combination of two theorems: firstly, a homotopical piece:
+	\begin{theorem}[Whitehead Theorem]
 		Let $f: X \to Y$ be a map of CW-complexes. Then if $f$ induces isomorphisms $\pi_n(X) \to \pi_n(Y)$ for all $n$ (and, for $n > 0$, all choices of basepoints) then $f$ is a homotopy equivalence.
 	\end{theorem}
 	Along with the homological content:
-	\begin{theorem}[Whitehead's Homological Theorem]
+	\begin{theorem}[Homological Whitehead Theorem]
 		Let $f: X \to Y$ be a map of simply connected CW complexes. Then if $f$ induces isomorphisms $H_n(X) \to H_n(Y)$ for all $n$, $f$ also induces isomorphisms $\pi_n(X) \to \pi_n(Y)$ (for any choice of basepoint).
 	\end{theorem}
-	We can more succinctly phrase this as ``the singular chain complex functor reflects weak equivalences between CW complexes.'' 
-	It is this categorical phrasing of the homological content that we refer to as ``Whitehead's Homological Theorem.'' The primary defect of this theorem is that it requires simple connectedness, and this requirement cannot be weakened; e.g. there are so-called ``acyclic'' CW complexes $X$ for which the unique map $X \to \bullet$ . Fortunately, it turns out that by appropriately generalizing simply-connected chain complexes, we can find a stronger statement:
-	\begin{theorem}[Whitehead's Generalized Homological Theorem]
+	Zooming out to the categorical level, we can rephrase this as saying the singular chains functor reflects weak homotopy equivalences between simply-connected $CW$-complexes. 
+	\par 
+	A primary defect of this theorem is that it requires simple connectedness, and this requirement cannot be weakened; there are so-called ``acyclic'' CW complexes $X$ for which the unique map $X \to \bullet$ is a homology equivalence, but $X$ is not homotopy equivalent to a point. 
+	Fortunately, it turns out that by appropriately generalizing simply-connected chain complexes, we can find a stronger statement:
+	\begin{theorem}
 		Let $f: X \to Y$ be a map of CW complexes. If
 		\begin{itemize}
 			\item $f$ induces an isomorphism on $\pi_0$ , and
 			\item for any choice of basepoint, $f$ induces an isomorphism on $\pi_1$, and
-			\item for any choice of basepoint, $f$ induces an isomorphism on homology of universal covers 
+			\item for any choice of basepoint, the induced map of universal covers $\widehat{f}: \widehat{X} \to \widehat{Y}$ induces an isomorphism on homology.
 		\end{itemize}
 		Then $f$ is a weak equivalence.
 	\end{theorem}
-	The conditions in this theorem can be reinterpreted in a surprising way: for a space $X$ there is an associated infinite dimensional groupoid called $\omega(X)$, which possesses a natural notion of homotopy group. There are natural isomorphisms
-	$$\pi_0(\omega(X)) \cong \pi_0(X) \quad \pi_1(\omega(X), x_0) \cong \pi_1(X,x) \quad \pi_n(\omega(X),x_0) \cong H_n(\widehat{X}, x_0)$$
-	(where $\widehat{X}$ is the universal cover). We can therefore rephrase the above strengthening as 
+	The conditions in this theorem can be reinterpreted in a surprising way, in terms of a higher-dimensional generalization of a groupoid called an \textit{$\omega$-groupoid:}
+	\begin{definition}
+		An $\omega$-groupoid $G$ is a sequence of sets
+		\begin{center}
+		\begin{tikzcd}[sep = huge]
+		G_0 & G_1 \ar[l, "s", shift left = 2] \ar[l,"t" swap, shift right = 2] & G_2 \ar[l, "s", shift left = 2] \ar[l,"t" swap, shift right = 2]   & \cdots \ar[l, "s", shift left = 2] \ar[l,"t" swap, shift right = 2] 
+		\end{tikzcd}
+		\end{center}
+		Where each subdiagram
+		\begin{center}
+		\begin{tikzcd}[sep = huge]
+		G_i & G_{k} \ar[l, "s^{k-i}", shift left = 2] \ar[l,"t^{k-i}" swap, shift right = 2]
+		\end{tikzcd}
+		\end{center}
+		(with $i < k$) is equipped with a composition operation $\circ_i^k$ making it into a groupoid. Furthermore, these operations are compatible in the sense that if a diagram in $G$ can be reduced to a single $n$-cell via a sequence of compositions, then there is a unique way to do so. 
+		For an omega groupoid $G$ and $g \in G_0$, we denote by $\pi_n(G,g)$ the automorphism group of $g$ in the groupoid
+		\begin{center}
+		\begin{tikzcd}[sep = huge]
+		G_0 & G_{n} \ar[l, "s^n", shift left = 2] \ar[l,"t^n" swap, shift right = 2]
+		\end{tikzcd}
+		\end{center}
+	\end{definition}	
+	 Given a space $X$ there is an associated $\omega$-groupoid $\omega(X)$. Further, there are natural isomorphisms
+	$$\pi_0(\omega(X)) \cong \pi_0(X) \quad \pi_1(\omega(X), x_0) \cong \pi_1(X,x) \quad \pi_n(\omega(X),x_0) \cong H_n(\widehat{X}_{x_0}, x_0)$$
+	We can therefore rephrase the above strengthening as 
 	\begin{theorem}
-		The functor $\omega: \text{Top} \to \omega\text{Gpd}$ reflects weak equivalences between $CW$ complexes.
-	\end{theorem}		
-	Furthermore, this theorem can be shown to imply the original formulation in terms of chain complexes, since chain complexes are essentially the same as simply connected $\omega$-groupoids.
-	In [ref] we have shown how it is possible reinterpret this functor as the ``strictification'' of an $\infty$-groupoid: roughly speaking, one can associate to each topological space a sort of ``fundamental $\infty$-groupoid'' which captures all of the homotopical data of $X$, and which can be thought of as being an $\omega$ groupoid where all of the identities are required to hold only up to homotopy rather than on the nose. 
-	Under this identification, the functor $\omega$ is given by collapsing all of these homotopies, turning the ``weak'' structure into ``strict'' structure. Thus, the above theorem becomes equivalent to ``the strictification of $\infty$-groupoids reflects weak equivalences.'' 
-	\\
-	This phrasing suggests a generalization: $\infty$-groupoids are merely the beginning of a hierarchy of homotopical objects called $(\infty,n)$ categories; they are precisely the $(\infty, 0)$-categories. $(\infty,n)$ categories are roughly thought of as being ``$(\omega,n)$-categories where all axioms hold only up to homotopy (invertible higher cells)'' and so we expect there to exist functors $\text{St}_n : (\infty,n)\text{Cat} \to (\omega,n)\text{Cat}$ for all $n$, left adjoint to inclusion functors. One might optimistically hope that these functors carry a similar amount of structure as the functor $\text{St}_0$ carries; in particular one might hope that they are conservative and comonadic. In this paper we will verify a small piece of this optimism by constructing $\text{St}_1$ and proving that it is conservative. Precisely, we shall prove that:
+		The functor $\omega: \text{Top} \to \stinfty$ reflects weak equivalences between $CW$ complexes.
+	\end{theorem}
+	The functor $\omega$ can be interpreted purely in terms of another kind of higher groupoid, called an $\infty$-groupoid. A rough definition of $\infty$-groupoids is the following: 
+	
+	\begin{definition}[Pseudo-Definition] An $\infty$-groupoid $G$ is like an $\omega$-groupoid, e.g. it has sets of $n$-cells $G_n$, source and target maps, identities, and composition operations, except that whenever an axiom of an $\omega$-groupoid would assert that two $n$-cells $\alpha,\beta \in G_n$ are equal, instead they are required to be \textit{homotopic}. That is, we replace every axiom ``$\alpha = \beta$'' with the axiom $\exists H \in G_{n+1}$ such that $s(H) = \alpha$ and $t(H) = \beta$.''
+	\end{definition}
+	\begin{example}
+		Let $G$ be an $\infty$-groupoid, and \begin{tikzcd}\bullet \ar[r, "f"] & \bullet \ar[r, "g"] & \bullet \ar[r, "h"] & \bullet \end{tikzcd} a diagram in $G$. That is, suppose we have $f,g,h \in G_1$, with compatible sources and targets as shown. 
+		Then we have a composition operation $\circ_0^1$, and can apply it in two different orders to get the $1$-cells \begin{tikzcd} \bullet \ar[r, "(fg)h"] & \bullet \end{tikzcd} and \begin{tikzcd} \bullet \ar[r, "f(gh)"] & \bullet \end{tikzcd}. If $G$ were an $\omega$-groupoid, these cells would be equal. Instead, we can only conclude that there is some $2$-cell $A_{fgh}$ with source and target these two different paranthesizations, which we draw as:
+		\begin{center}
+		\begin{tikzcd}[sep = large]
+			\bullet  \ar[rr, "(fg)h" {name=A}, bend left = 15, shift left = 2] \ar[rr, "f(gh)" {name=B}, swap, shift right = 2, bend right = 15]
+				& 
+				& \bullet
+			\arrow["A_{fgh}"{inner sep=1}, Rightarrow, from=A, to=B]
+		\end{tikzcd}
+		\end{center}
+	\end{example}
+	The important of $\infty$-groupoids is that they have a homotopy theory that is equivalent to the homotopy theory of spaces; i.e. we have an equivalence of homotopy categories $\Ho(\text{Top}) \simeq \Ho(\infty\text{Grpd})$. 
+	\par The $\omega$-groupoids are precisely the $\infty$-groupoids where all of the axioms hold not just up to homotopy, but rather ``strictly.'' 
+	For this reason they are also referred to as \textit{strict $\infty$-groupoids}. 
+	We therefore have a natural inclusion of categories $\stinfty \hookrightarrow \infty\text{Grpd}$. 
+	This has a left adjoint $\st: \infty\text{Grpd} \to \stinfty$, called ``strictification,'' which we might think of as collapsing the homotopies witnessing the axioms (e.g. $A_{fgh}$ in the above example) into identities, thereby forcing all the axioms to hold strictly. 
+	It is nonobvious, but it turns out that the functors $\omega$ and $\st$ are, up to homotopy, the same functor:
+	there is a commutative triangle of functors
+	\begin{center}
+	\begin{tikzcd}
+	\Ho(\text{Top}) \ar[rd, "\omega "] \ar[dd, "\sim " {rotate = 90, anchor = north} ] \\
+		 & \Ho(\stinfty) \\
+	\Ho(\infty \text{Grpd}) \ar[ru, "\st "]
+	\end{tikzcd}
+	\end{center}
+	where the vertical arrow is an equivalence of categories. 
+	Thus, from the higher categorical view, the generalized Homological Whitehead Theorem has a natural rephrasing as``the strictification functor reflects weak equivalences.''
+	\par
+	This higher-groupoid phrasing suggests a generalization: $\infty$-groupoids are the beginning of a hierarchy of homotopical objects called $(\infty,n)$ categories; they are precisely the $(\infty, 0)$-categories. $(\infty,n)$ categories are roughly thought of as being ``$(\omega,n)$-categories where all axioms hold only up to homotopy (invertible higher cells)'' and so we expect there to exist functors $\text{St}_n : (\infty,n)\text{Cat} \to (\omega,n)\text{Cat}$ for all $n$, left adjoint to inclusion functors. One might optimistically hope that these functors carry a similar amount of structure as the functor $\text{St}_0$ carries; in particular one might hope that they are conservative and comonadic. In this paper we will verify a small piece of this optimism by constructing $\text{St}_1$ and proving that it is conservative. Imprecisely, we shall prove that:
 	\begin{theorem}
-		A map between cofibrant sset categories is a weak equivalence if and only if its strictification is a weak equivalence.
-	\end{theorem}	 
-	In light of the comparison with the $(\infty, 0)$ case, we regard this as a sort of ``Whitehead's Theorem for $(\infty,1)$ categories.'' We illustrate some toy applications of this:
-	\TODO{some easy applications of this, with quasicategories freely formed from stuff.}
-	A major contrast of the development of the study of $\infty$-groupoids to the study of the development of $(\infty,1)$ categories is that many of the $\infty$-groupoids of interest to mathematicians come prepackaged as a collection of cells; the utility of homology is largely how easy it is to compute from these cells. On the other hand, the $(\infty,1)$ categories most of interest to mathematicians tend to arise as ``larger'' objects, e.g. as homotopy theories.\footnote{Similarly, many groups come given as generators and relations, whereas few categories of immediate independent interest are easily ``presented'' in such a way.} However, just as homology is an indispensable tool even for the study of spaces whose homology is not necessarily immediately computable, so too we hope that $(\omega,1)$ categories and their comparatively simple homotopy theory will allow some new progress in the study of $(\infty,1)$ categories.
-	\section{Background: $(\omega,1)$ categories}
+		There is a functor $\st_1: (\infty,1)\text{Cat} \to (\omega,1)\text{Cat}$, left adjoint to a natural inclusion functor. If $\C$ and $\D$ are $(\infty,1)$-categories that are either:
+		\begin{itemize}
+			\item $2$-truncated, i.e. are $(2,1)$-categories
+			\item $2$-connected, i.e. are simply connected monoidal $\infty$-groupoids
+		\end{itemize}		 
+then a functor $F: \C \to \D$ of $(\infty,1)$ categories is a weak equivalence if and only if the strictification $\st_1(F): \st_1\C \to \st_1\D$ is a weak equivalence.
+	\end{theorem} 
+	(The precise statement is in Theorems \TODO{reference} and \TODO{reference}, and we justify a model-independence of the result in Theorem \TODO{reference}). The $2$-truncated case is part of a general pattern of weak $2$-categories being modelled via strict $2$-categories, whereas the proof of the $2$-connected case turns out to be a special case of the fact that Hochschild Homology detects weak equivalences between differential graded algebras.
+	From this evidence, we conjecture that in general, $\st_1$ is conservative:
+	\begin{conjecture}\label{conjecture:conservativity}
+		The functor $\st_1: (\infty,1)\text{Cat} \to (\omega,1)\text{Cat}$ is conservative. 
+	\end{conjecture}
+	In light of the comparison with the $(\infty, 0)$ case, we regard this as a sort of ``Homological Whitehead Theorem for $(\infty,1)$ categories.''
+	\\\\
+	Our approach is based on splitting the functor $\st_1$ into two parts as follows: 
+	$(\infty,1)$-categories are thought of as categories weakly enriched in $\infty-groupoids$.
+	By strictifying every hom $\infty$-groupoid, we obtain a category enriched in $\omega$-groupoids. 
+	However, this enrichment is weak, and so we must further strictify the \textit{enrichment} to obtain a category (strictly) enriched in $\omega$-groupoids, equivalently an $(\omega,1)$-category.
+	If we think of strictification as a ``linearization,'' then this composite
+	\begin{center}
+	\begin{tikzcd}
+		(\infty,1)\mathcal{Cat} \cong \infty\text{Grpd}\mathcal{Cat} \ar[r, "\st^{\text{local}}"] 
+			& \stinfty^{\text{weak}}\mathcal{Cat} \ar[r, "\st^{\text{global}}"] & \stinfty^{\text{strict}}\mathcal{Cat} \cong (\omega,1)\mathcal{Cat}
+	\end{tikzcd}
+	\end{center}
+	we think of as first ``locally linearizing'' followed by ``globally linearizing.''
+	To prove that this composite functor is conservative, it suffices to prove that each individual functor is conservative.
+	The first $\st^{\text{local}}$ is conservative because strictification of $\infty$-groupoids is conservative, and equivalences of $(\infty,1)$-categories are detected locally. 
+	We do not succed in proving that $\st^{\text{global}}$ is conservative; a major difficulty is its nonlocal nature: the hom $\omega$-groupoid $\st^{\text{global}}(\C)[x,y]$ depends not just on every $\C[x,y]$ but on every composition map $\C[x,z] \otimes \C[z,y] \to \C[x,y]$. 
+	\par Concretely, the adjunction of which $\st^{\text{global}}$ is the left adjoint is a change of enrichment adjunction along a lax monoidal adjunction: namely, the adjunction $\id: (\stinfty, \otimes) \leftrightarrows (\stinfty, \times): \id$ between the gray monoidal structure and the cartesian monoidal structure on $\stinfty$. 
+	This adjunction is not strong monoidal, nor even Quillen monoidal, the homotopical analog.
+	We therefore have few general tools with which to analyze the change of enrichment adjunction.
+	In future work, we hope to complete the proof of conjecture \ref{conjecture:conservativity} via analyzing a similar adjunction involving categories enriched in chain complexes over a varying groupoid of operators.
+	% A major contrast of the development of the study of $\infty$-groupoids to the study of the development of $(\infty,1)$ categories is that many of the $\infty$-groupoids of interest to mathematicians come prepackaged as a collection of cells; the utility of homology is largely how easy it is to compute from these cells. On the other hand, the $(\infty,1)$ categories most of interest to mathematicians tend to arise as ``larger'' objects, e.g. as homotopy theories.\footnote{Similarly, many groups come given as generators and relations, whereas few categories of immediate independent interest are easily ``presented'' in such a way.} However, just as homology is an indispensable tool even for the study of spaces whose homology is not necessarily immediately computable, so too we hope that $(\omega,1)$ categories and their comparatively simple homotopy theory will allow some new progress in the study of $(\infty,1)$ categories.
+\subsection{Conventions}
+	We shall be relatively concrete about our models, working mainly with particular model categories.
+	By $(\omega,n)$-category we mean the strictest possible notion (which we recall in section 1). 
+	There are (as is typical) obvious set theoretic issues as we deal with ``categories of categories''; we do not deal with these but refer the interested reader to \TODO{reference something} for a summary of how this would be done. 
+	\\\\
+	For $\V$ a symmetric monoidal category with unit $\mathbb{I}$ and initial object $\emptyset$, we shall denote by $\sus[-]: \V \to \V-\mathcal{Cat}$ the functor which takes an object $V$ to the $\V$-category with two objects $0$ and $1$, with
+	$$\sus(V)[0,0] = \sus(V)[1,1] = \mathbb{I} \quad \quad \sus(V)[0,1] = V \quad \quad \sus(V)[1,0] = \emptyset$$
+	\\\\
+	In all of the model categories we will consider, we will write composition in the standard order, e.g. if we have morphisms \begin{tikzcd}  X \ar[r, "f"] & Y \ar[r, "g"] & Z \end{tikzcd} we write the composition $gf$. 
+	However, for other categorical compositions we will generally write composition the opposite way, e.g. if we have morphisms \begin{tikzcd}  p \ar[r, "\ell "] & q \ar[r, "k"] & r \end{tikzcd} of a groupoid, then we will write their composition as $\ell k$. 
+\subsection{Organization of this paper}
+	In section 1 we recall the basic definitions of $\omega$ groupoids and $(\omega,1)$ categories, as well as at the Gray tensor product, which will feature heavily in the proof of the main theorem. In section 2 we recall the model structures on our four categories of interest, define the relevant quillen adjunctions, and finally give the proof of the main theorem, which can be outlined imprecisely as follows: $(\infty,1)$-categories are equivalently categories weakly enriched in $\infty-groupoids$.
+	By strictifying every hom $\infty$-groupoid, we obtain a category enriched in $\omega$-groupoids. 
+	However, this enrichment is weak, and so we must further strictify the \textit{enrichment} to obtain a category (strictly) enriched in $\omega$-groupoids, equivalently an $(\omega,1)$-category.
+	If we think of strictification as a ``linearization,'' then this composite
+	\begin{center}
+	\begin{tikzcd}
+		(\infty,1)\mathcal{Cat} \cong \infty\text{Grpd}-\mathcal{Cat} \ar[r, "\st^{\text{local}}"] 
+			& \stinfty^{\text{weak}}-\mathcal{Cat} \ar[r, "\st^{\text{global}}"] & \stinfty^{\text{strict}}-\mathcal{Cat} \cong (\omega,1)\mathcal{Cat}
+	\end{tikzcd}
+	\end{center}
+	we think of as first ``locally linearizing'' followed by ``globally linearizing.''
+	To prove that this composite functor is conservative, it suffices to prove that each individual functor is conservative. 
+	The first $\st^{\text{local}}$ is conservative because strictification of $\infty$-groupoids is conservative, and equivalences of $(\infty,1)$-categories are detected locally. 
+	Proving that $\st^{\text{global}}$ is conservative requires more original work, requiring a nonabelian and multi-object generalization of the fact that a map between free $\text{dg}$-algebras is a quasi-equivalence if it induces an equivalence on the prime elements.
+	We carry this analysis out via means of a spectral sequence, the details of which we relegate to section 3 (after the main proof). Finally, in section 4 we discuss some potential applications and relations with existing work, as well as sketch a proof strategy for constructing and analyzing functors $\st_n: (\infty,n)\mathcal{Cat} \to (\omega,n)\mathcal{Cat}$. 
+%	for $\C$ an $(\infty,1)$-category, given concretely as an $\sset$-category, we can apply $\st_0$ to each of its hom spaces to obtain an $\stinfty$-category.
+%	Since this preserves the homotopy category, and $\st_0$ reflects weak equivalences, we can deduce that this operation reflects weak equivalences (since the weak equivalences between $\sset$-categories are those functors which are equivalences on the homotopy categories and on the hom-spaces).
+%	However, since is Quillen monoidal with respect to the gray tensor product (rather than the cartesian product) of $\omega$-groupoids, this resulting $\stinfty$-category is enriched with respect to the gray tensor product, not the cartesian product, so it is not an $(\omega,1)$-category.
+%	To obtain an $(\omega,1)$ category we must apply a somewhat obtuse functor which has the behaviour of killing off nontrivial tensor products, and which we therefore think of as a sort of ``global linearizing'' (as opposed to the first functor, which is a sort of ``local linearizing''). 
+%	Proving that this functor reflects weak equivalences is nontrivial; we do so by means of a spectral sequence, the details of which we relegate to section 3. 
+%	Finally, in section 4 we discuss some potential applications and relations with existing work. 
+\section{Background: $(\omega,n)$ categories and crossed complexes}
 	\begin{definition}\label{dfn:omega-cats} 
 		An \emph{$\omega$-category} $C$ is a sequence of sets
 		\begin{center}
@@ -209,37 +336,53 @@
 		C_i & C_{i+k} \ar[l, "s^k", shift left = 2] \ar[l,"t^k" swap, shift right = 2]  & C_{i+k+j} \ar[l, "s^j", shift left = 2] \ar[l,"t^j" swap, shift right = 2]  & 
 		\end{tikzcd}
 		\end{center}
-		is a $2$-category. A map between $\omega$-categories is a map of diagrams which preserves all the categorical structure. The resulting category we notate as $\omegacat$.
+		is a ``strict $2$-category.'' This is equivalent to imposing that  
+		$$(\alpha \circ_j^k \beta) \circ_i^k(\gamma \circ_j^k \eta) = (\alpha \circ_i^k \beta) \circ_j^k(\gamma \circ_i^k \eta)$$
+		whenever these are defined, where $\circ_a^b$ denotes the categorical composition operation of 
+		\begin{center}
+		\begin{tikzcd}[sep = huge]
+		C_a & C_b \ar[l, "s^{b-a}", shift left = 2] \ar[l,"t^{b-a}" swap, shift right = 2] 
+		\end{tikzcd}
+		\end{center} 
+		This axiom is referred to as ``interchange.'' A map between $\omega$-categories is a map of diagrams which preserves all the categorical structure. The resulting category we notate as $\omegacat$.
 	\end{definition}
 	\begin{definition}\label{dfn:omega-n-cats}
 		An \emph{$(\omega,n)$-category} $C$ is an $\omega$-category such that for all $i \ge n$ and $k > 0$, the categories
-		
 		\begin{center}
 		\begin{tikzcd}[sep = huge]
 		C_i & C_{i+k} \ar[l, "s^k", shift left = 2] \ar[l,"t^k" swap, shift right = 2] 
 		\end{tikzcd}
 		\end{center}
-		are groupoids. The resulting full subcategory of $\omegacat$ we notate as $\omegancat{n}$. In the special case $n = 0$, we refer to $(\omega,n)$-categories as $\omega$ groupoids, and denote the category by $\stinfty$.
+		are groupoids. The resulting full subcategory of $\omegacat$ we notate as $\omegancat{n}$. In the special case $n = 0$, we refer to $(\omega,n)$-categories as $\omega$-groupoids, and denote the category by $\stinfty$.
 	\end{definition}
 	$\omegancat{n}$ possess small limits, and consequentially we can define enriched categories over it:
 	\begin{definition}
 		We denote by $\cartesiancat{n}$ the category whose objects are categories enriched in $\omegancat{n}$ with respect to the cartesian monoidal structure, and morphisms functors between such categories. 
 	\end{definition}
-	The latter is much more familiar:
-	\begin{theorem}\label{enriched-strict-equivalence}
+	A key feature is that enriching in $(\omega,n)$-categories ``raises the categorical level by $1$'':
+	\begin{theorem}\label{thm:enriched-strict-equivalence}
 		There is an equivalence of categories
-			$$\omegannerve{n}:\cartesiancat{n} \leftrightarrows (\omega,n+1)\text{Cat}: \omeganrigidification{n+1}$$
+			$$\omegannerve{n}:\cartesiancat{n} \leftrightarrows (\omega,n+1)\text{Cat}: \omeganrigidification{n+1}$$ 
 	\end{theorem}
 	\TODO{the notation should be mathfrak, but there's some font error. ugh.}
 	\begin{proof}
-		\TODO{just write out the functor one way}
+		As the result is classical, we define just the functor $\omegannerve{n}$ for the point of illustration: for $\C \in \cartesiancat{n}$, we define $\omegannerve{n}(C)$ by:
+		$$\omegannerve{n}(C)_0 = \ob(C) \quad \text{ and } \quad \omegannerve{n}(C)_k= \coprod_{x,y \in \ob(C)} C[x,y]_{k-1}\text{ for } k > 0$$ 
+		The source and target maps are given ``locally'' (i.e. by the source and target maps of $\C[x,y]$) for $k > 1$, and for $k = 1$ $s(\alpha) = x$ where $x$ is the unique object of $C$ with $\alpha \in C[x,y]$ (and likewise for $t$. 
+		Similarly, the composition operations $\circ_i^k$ are given ``locally'' if $i > 0$; i.e. if $i > 0$ then for $\alpha \circ_i^k \beta$ to be defined we must have that $\alpha, \beta \in \C[x,y]$ for some objects $x$ and $y$ and so we can define 
+		$$\alpha \circ_i^k \beta = \alpha \tilde{\circ}_{i-1}^{k-1} \beta$$
+		Where $\tilde{\circ}$ denotes the composition operation in $\C[x,y]$. 
+		It is not hard to see that interchange is satisfied for $i < j < k$ when $i > 0$; when $i > 0$ it follows from the composition maps in $C$ being maps of $(\omega,n)$-categories. 
+		The fact that the appropriate category structures are groupoidal (so that $\omegannerve{n}(C)$ is not just an $\omega$-category, but an $(\omega,n+1)$-category) follows directly from the fact that the corresponding category structures in $C$ (but shifted down one indexing level) are groupoidal.
 	\end{proof}
-	$\omega$-groupoids admit an alternative description, due to ----, as a sort of nonabelian chain complex called a \textit{crossed complex}
+	For the results of this paper, we will only really need to know that $(\omega,1)\text{Cat}$ is equivalent to $\cartesiancat{0}$. 
+	Furthermore, we will not actually work directly with $\omega$-groupoids: 
+	$\omega$-groupoids admit an alternative description, due to \TODO{reference original} as a sort of nonabelian chain complex called a \textit{crossed complex}
 	\begin{definition}[\cite{Brown_Higgins_Sivera_2011}, Definition 7.1.9]
 	A \textbf{crossed complex} $C$ is a sequence of sets 
 	\begin{center}
 	\begin{tikzcd}
-		C_0 \ar[r, "{\id}"] & C_1 \ar[l, "s", shift right = 2, bend right = 15, swap] \ar[l, "t", shift left = 2, bend left = 15] & C_2 \ar[l, "\delta_2"] &  C_3 \ar[l,"\delta_3"] & \cdots \ar[l]
+		C_0 & C_1 \ar[l, "s", shift right = 2, swap] \ar[l, "t", shift left = 2] & C_2 \ar[l, "\delta_2"] &  C_3 \ar[l,"\delta_3"] & \cdots \ar[l]
 	\end{tikzcd}
 	\end{center}
 	Such that:
@@ -247,11 +390,11 @@
 		\item The diagram
 	\begin{center}
 	\begin{tikzcd}
-		C_0 \ar[r, "{\id}"]& C_1 \ar[l, "s", shift right = 2, bend right = 15, swap] \ar[l, "t", shift left = 2, bend left = 15]
+		C_0 & C_1 \ar[l, "s", shift right = 2, swap] \ar[l, "t", shift left = 2]
 	\end{tikzcd}
 	\end{center}
-	forms a groupoid, which we will abuse notation by referring to simply as $C_1$.
-	\item Each $C_i$ for $i \ge 2$ is a skeletal module over the groupoid $C_1$: that is, a family of groups of the form 
+	forms a groupoid, with which we will sometimes abuse notation by referring to simply as $C_1$.
+	\item Each $C_i$ for $i \ge 2$ is a skeletal groupoid on object set $C_0$ over the groupoid $C_1$: that is, a family of groups of the form 
 	$$C_i = \coprod_{c \in C_0} C_i(c)$$
 	where each $C_i(c)$ is a group, equipped with morphisms
 	$$
@@ -262,260 +405,531 @@
 	\phi_{\ell \circ p} = \phi_\ell \circ \phi_p
 	$$
 	and that $\phi_{\id_x} = \id_{C_i(x)}$. Further, each $C_i(c)$ is abelian for $i>2$. From now on we shall generally suppress the $ c \in C_0$ from our notation when our meaning is clear, saying for example ``$C_i$ is abelian for $i > 2$.''
-	\item For $i > 2$, the maps $\delta_i$ are families of maps of groups $\delta_i : C_i \to C_{i-1}$, satisfying $\delta_{i-1} \circ \delta_i = 0$.
+	\item For $i > 2$, the maps $\delta_i$ are families of maps of groups $\delta_i : C_i \to C_{i-1}$, satisfying $\delta_{i-1} \circ \delta_i = 0$. For the case $i=2$, we have that $s\circ \delta_2 = t\circ \delta_2$.
 	\item $\delta_2$ is a family of maps of groups $\delta_2(c) : C_2(c) \to \Aut(c)$, where by $\Aut(c)$ we mean the automorphism group of $c$ in the groupoid $C_1$.
 	\item The action of $C_1$ on $C_i$ is compatible with the $\delta_i$ in the sense that for $i > 2$, $\ell \in C_1$, and $a \in C_i(x)$
 	$$\phi_\ell \circ \delta_i = \delta_{i-1} \circ \phi_\ell$$
-	\item For any $a \in C_2$, $\delta_2(a)$ acts by conjugation by $a$ on $C_2$ and trivially on $C_i$ for $i > 2$.
+	\item For any $a \in C_2$, $\delta_2(a)$ acts by conjugation by $a$ on $C_2$ and trivially on $C_i$ for $i > 2$. 
+	Note that imposing that the image of $C_2$ acts trivially on $C_i$ for $i > 2$ is equivalent to asking that these $C_i$ are in fact modules over the cokernel of $C_2 \to C_1$.
 	\end{enumerate}
 	\end{definition}
-	
-	\begin{theorem}[\TODO{reference, notation}]
+	\begin{theorem}[\TODO{reference, notation}]\label{thm:crossed-omega-equivalence}
 		There is an equivalence of categories
 		$$ \puttogether : \crcom \rightleftarrows \stinfty : \takeapart$$
 	\end{theorem}
-	One should think of a crossed complex as a gadget which encodes a sort of ``basis'' for the cells of the associated $\omega$Gpd; the groups $C_n(x)$ are roughly to be thought of as "unbased $n$-cells" in the following sense: for $G \in \stinfty$, the $n$-cells $\alpha \in G_n$, one can whisker (compose with identity cells) $\alpha$ with the lower dimensional cells $s(\alpha)^{-1}, s^2(\alpha)^{-1},...,s^{n-1}(\alpha)^{-1}$ to obtain an $n$-cell $\tilde{\alpha}$ such that $s(\tilde{\alpha})$ is equal to $\id^{n-1}(p)$ for $p$ the $0$-cell $s^n(\alpha)$. The $n$ cells of this form are a group under the composition operation in 
+	One should think of a crossed complex as a gadget which encodes a sort of ``basis'' for the cells of the associated $\omega$Gpd; the groups $C_n(x)$ are roughly to be thought of as ``unbased $n$-cells'' in the following sense: for $G \in \stinfty$, the $n$-cells $\alpha \in G_n$, one can whisker (compose with identity cells) $\alpha$ with the lower dimensional cells $s(\alpha)^{-1}, s^2(\alpha)^{-1},...,s^{n-1}(\alpha)^{-1}$ to obtain an $n$-cell $\tilde{\alpha}$ such that $s(\tilde{\alpha})$ is equal to $\id^{n-1}(p)$ for $p$ the $0$-cell $s^n(\alpha)$. 
+	The $n$ cells of this form are a group under the composition operation in 
 	\begin{center}
 		\begin{tikzcd}[sep = huge]
-		C_n & C_{n+k} \ar[l, "s^k", shift left = 2] \ar[l,"t^k" swap, shift right = 2] 
+		C_{n-k} & C_{n} \ar[l, "s^k", shift left = 2] \ar[l,"t^k" swap, shift right = 2] 
 		\end{tikzcd}
 		\end{center}
-if $n \ge 2$, $ 2 \le k \le n$; by the Eckmann-Hilton argument these groups are abelian if $n \ge 3$. We think of these $n$-cells $\tilde{\alpha}$ as being ``unbased $n$-cell data''; given $s(\alpha)$ and $\tilde{\alpha}$ we can recover $\alpha$ via whiskering; moreover for any two composable $\alpha$ and $\beta$ in $G_n$ we can recover the composition $\alpha \circ_{n-1} \beta$ via $\tilde{\alpha} + \tilde{\beta}$ and $s(\alpha)$. 
-	The effect of the functor $\takeapart$ is remember only the cells $\tilde{\alpha}$, and the effect of $\puttogether$ is to take the cells $\tilde{\alpha}$ and recursively piece them together to recover the original $n$-cells.
-	\\\\
-	\indent The reason that we are concerned with $\crcom$ is that its chain-complex-like nature makes it often easier to work with directly than $\stinfty$; in particular we have by the above an equivalence of categories $\omegancat{1} \cong \cartcrossedcat $, and for the remainder of the paper we will use the later as our model of choice.
-	\section{The model structures}
-		The object of this paper is to show that the composition of left adjoints in the diagram
-		\begin{center}
-		\begin{tikzcd}
-			asdf
-		\end{tikzcd}
-		\end{center}
-		reflects weak equivalences between cofibrant objects. 
-		In this section we specify what the model structures are on each category; none of the material in this section is original.
-	\subsection{The Bergner model structure}
-		Our model of choice for $(\infty,1)$ categories will be the Bergner model structure on $\ssetcat$. We recall here the definitions: \\
-		\begin{theorem}
-			There is a model category structure on $\ssetcat$ where a morphism $f: \C \to \D$ is:
-			\begin{enumerate}
-				\item A weak equivalence if it induces an equivalence of categories $\pi_0 \C \to \pi_0 \D$, as well as weak equivalences of simplicial sets $\C[x,y] \to \D[fx,fy]$ for all $x,y \in \ob \C$.
-				\item A fibration if it induces an isofibration of categories $\pi_0 \C \to \pi_0 \D$, as well as fibrations of simplicial sets $\C[x,y] \to \D[fx,fy]$ for all $x,y \in \ob \C$.
-				\item A cofibration if it has the left lifting property with respect to the acylic fibrations.
-			\end{enumerate}
-		\end{theorem}
-		One relevant fact about this model structure we shall use is that the cofibrant objects are precisely the \textit{simplicial computads}. In fact, a stronger relative statement is true:
-		\begin{theorem}[relative computads]
-			Let $f: \C \to \D$ be a cofibration between cofibrant objects of the Bergner model structure. Then $f$ is cellular with respect to the generating cofibrations.
-		\end{theorem}		
-		\begin{proof}
-			\TODO{write proof.}
-			\TODO{ actually don't need to prove this; we can factor any map as cellular followed by acyclic fibration, so we don't need to prove this separately.}
-		\end{proof}		
-	\subsection{The folk model structure on $(\omega,1)$-Cat and $\omega Grpd$-Cat.}
-		In general, $\omegancat{n}$ has a model structure due to \TODO{reference}. For our purposes, we only need to consider the model structure on $\omegancat{1}$. It turns out the model structure in  ----- coincides with the one induced by the Dwyer-Kan model structure and the equivalence of categories with $\cartcrossedcat$. Recall
-		\begin{definition}
-		Let $C$ be an $(\omega,1)$-category, $n \in \mathbb{N}$.
-			\begin{itemize}
-				\item We say that an $1$-cell $x \in C_n$ is \emph{equivalent} to $y \in C_n$ if there is a reversible $(n+1)$-cell $u: x \to y$.
-				\item We say that an $(n+1)$-cell $u \in C_{n+1}$ is \emph{reversible} if there is an $(n+1)$ cell $\overline{u} \in C_{n+1}$ such that $u * \overline{u}$ and $\overline{u} * u$ are each equivalent to identity $(n+1)$-cells.
-			\end{itemize}
-		\end{definition}
-		\begin{definition}
-			Let $\mathcal{W}$ be the class of morphisms $f: C \to D$ in $\omegancat{1}$ such that:
-			\begin{enumerate}
-				\item For each $0$-cell $y$ in $D$, there is a $0$-cell $x$ in $X$ such that $fx$ is $\omega$-equivalent to $y$.
-				\item For each pair of parallel $n$-cells $x$ and $x'$ in $C_n$, and each $(n+1)$-cell $v:fx \to fx'$ in $D$, there is an $(n+1)$-cell $u:x \to x'$ such that $f u$ is equivalent to $v$.
-			\end{enumerate}
-		\end{definition}
-		\begin{definition}
-			Let $C$ be an $(\omega,1)$-category. The \textit{homotopy category} of $C$ is the $1$-category with objects those of $C$, and morphisms the $1$-cells of $C$ modulo the relation of $\omega$ equivalence. Note that 
-		\end{definition}
-		\begin{lemma}: 
-			A functor $f: C \to D$ of $(\omega,1)$ categories is an equivalence if and only if:
-			\begin{itemize}
-				\item $\Ho(f)$ is essentially surjective, and
-				\item for each $x,y \in C_0$, $f: C[x,y] \to D[x,y]$ is a weak equivalence of $\omega$-groupoids (in the sense of being a weak equivalence of $\omega$-categories).
-			\end{itemize}
-		\end{lemma}
-		\begin{proof}
-			Do I include this? Seems too obvious.
-		\end{proof}
-		\begin{theorem}
-			There is a model structure on $(\omega,1)-\text{Cat}$ in which:
-			\begin{itemize}
-				\item A functor $F: \C \to \D$ is a weak equivalence precisely if it induces an essential surjection of homotopy categories $\text{Ho}(F) : \text{Ho}(\C) \to \text{Ho}(\D)$ and for every $x,y \in \text{Ob}(\C)$ it induces a weak equivalence of $(\omega,0)$-categories $\C[x,y] \to \D[Fx,Fy]$.
-				\item A functor $F \C \to \D$ is a trivial fibration precisely if it is surjective on objects and for every $x,y \in \text{Ob}(\C)$ it induces a trivial fibration of $(\omega,0)$-categories $\C[x,y] \to \D[Fx,Fy]$. 
-			\end{itemize}			 
-		\end{theorem}
-		\begin{proof}
-			See \TODO{reference}
-		\end{proof}
-		This immediately gives us the following model structure:
-		\begin{theorem}
-			There is a model structure on $\cartcrossedcat$ in which
-			\begin{itemize}
-				\item A functor $F: \C \to \D$ is a weak equivalence precisely if it induces an essential surjection of homotopy categories $\text{Ho}(F) : \text{Ho}(\C) \to \text{Ho}(\D)$ and for every $x,y \in \text{Ob}(\C)$ it induces a weak equivalence of crossed complexes $\C[x,y] \to \D[Fx,Fy]$.
-				\item A functor $F \C \to \D$ is a trivial fibration precisely if it is surjective on objects and for every $x,y \in \text{Ob}(\C)$ it induces a trivial fibration of crossed complexes $\C[x,y] \to \D[Fx,Fy]$. 
-			\end{itemize}
-		\end{theorem}
-	\subsection{The model structure on $\tensorcrossedcat$.}
-		The model category $\crcom$ has a tensor product $\otimes$, and in --- the authors show that $\crcom$ is furthermore a symmetric monoidal model category and satisfies the monoid axiom of ---. 
-		By ---- it follows that $\tensorcrossedcat$ is a model category, with weak equivalences the $D-K$ equivalences and fibrations the local fibrations. 
-		\TODO{reference the Fernando Muro paper to prove that there is a model structure on this.}
-\section{The functors between $\sset$-Cat and $\omega Grpd$-Cat}
-	\subsection{Background - the strictification functor for $\infty$-groupoids, crossed complexes}
-		We have referenced already the strong connection between homology and $\omega$-groupoids. In fact, the relation is extremely strong: there is a functor $R: \ch \to \omega Grpd$ which takes the chain complex $C_\bullet$ to an $\omega$-groupoid with underlying globuler set
-		\TODO{make this nicer}
-		\begin{center}
-		\begin{tikzcd}
-		C_0 & C_0 \times C_1 & C_0 \times C_1 \times C_2 & \cdots
-		\end{tikzcd}
-		\end{center}
-		And with the composition operation on
-		\begin{center}
-		\begin{tikzcd}
-		C_0 \times \cdots \times C_i & C_0 \times  \cdots \times C_i \times \cdots \times C_{i + k}
-		\end{tikzcd}
-		\end{center}
-		given by addition on the last $k$ factors. This functor $R$ should be thought of as interpreting each dimension $C_i$ as a collection of ``unbased $i$ dimensional morphisms,'' which paired with a source (an $i-1$ morphism; inductively an element of $C_0 \times \cdots \times C_{i-1}$) gives rise to an $i$ morphism.\footnote{Those familiar with the Dold-Kan construction should compare this, which has an extremely similar definition - which is no accident; this definition unwinds a chain complex into a globular set; Dold-Kan unwinds a chain complex into a simplicial one instead.} Surprisingly, it turns out that there is a partial inverse to this operation: given an arbitrary $\omega$ groupoid $G$, there is a process to ``distill'' out the ``unbased'' data in each dimension, leaving one with a sort of nonabelian chain complex called a \textit{crossed complex}.
-		\TODO{The crossed complex of an $\omega$ groupoid} \\
-		It turns out that this functor is actually an equivalence of categories: from the unbased morphism data of $afhadfkj$, the original $\omega$ groupoid can be recovered, not just up to weak equivalence but up to isomorphism. While we are conceptually interested in $\omega$ groupoids as the strict analogue of $\infty$ groupoids, it is clear that crossed complexes provide a convenient framework in which to do computation and proof. We therefore from now on shall be entirely concerned with constructing an adjunction from adklfankldsfk to asdlfmnalsdkf, while aware that our results imply identical results for $(\omega,1)$ categories as described above. 
-		\TODO{brief clarification on this. Make sure to be concrete about how the functors are defined and the various models - I think in this paper I will only really need the one sSet -> omega-groupoid. Recall the theorems from Tonks for ease of reference.} 
-	\subsection{The adjunction between $\ssetcat$ and $\tensorcrossedcat$.}
-		\TODO{define the functors, try to prove they are adjoint up to homotopy (or even better, infinity-categorically.}
-		We are now ready to define the adjunction
-		$$
-			\text{St}_1: \sset-\text{Cat} \rightleftarrows \tensorcrossedcat: U_1
-		$$
-		The adjunction is induced by the strictification adjunction $\text{St}_0: \sset \rightleftarrows \crcom :  U_0$, which is proven in \TODO{reference} to be lax-monoidal. We will spell out more explicitly what this means:
-		\begin{definition}
-			Let $C \in \sset-\text{Cat}$. The crossed complex enriched category $\text{St}_1(C)\in \tensorcrossedcat$ has objects and morphisms defined by:
-				$$\text{Ob}(\text{St}_1(C)) = \text{Ob}(C)$$
-				$$\text{St}_1(C)[x,y] = \text{St}_0(C[x,y])$$
-				The composition operation $\text{St}_1(C)[x,y] \otimes \text{St}_1(C)[y,z] \to \text{St}_1(C)[x,z]$ is the composition
-				$$
-					\text{St}_1(C)[x,y] \otimes \text{St}_1(C)[y,z] = \text{St}_0(C[x,y]) \otimes \text{St}_0(C[y,z]) \to \text{St}_0(C[x,y] \times C[y,z]) \to \text{St}_0(C[x,z]) 
-				$$ 
-		\end{definition}
-			\TODO{verify axioms via the various structure theorems in Tonks.}
-		\begin{definition}
-			Let $C \in \graycatzero$. The $\sset$-enriched category $U_1(C)$... \TODO{finish this}.
-		\end{definition}
-			
-		\begin{theorem}
-			$\text{St}_1$ is left adjoint to $U_1$. \TODO{this is just not true, but should be up to homotopy}
-		\end{theorem}
-		\begin{proof}
-			Let $\C \in (\sset)-\text{Cat}$, and $\D \in \graycatzero$. Given a functor $F: \text{St}_1 \C \to \D$, we define the functor $\tilde{F}: \C \to U_1(\D)$ on objects by
-			$$
-				\tilde{F}(x) = F(x)			
-			$$
-			and on morphisms by 
-			$$
-				\tilde{F}: \C[x,y] \to U_1(\D)[Fx,Fy] = U_0(\D[Fx,Fy])			
-			$$
-			is the adjoint to the morphism $F: \text{St}_1(\C)[x,y] = \text{St}_0(\C[x,y])  \to \D[Fx,Fy]$.
-			Naturality and bijectiveness follows from the fact that $\text{St}_0$ and $U_0$ are adjoint.
-		\end{proof}
-		
-		The following result will be useful for us as we attempt to understand the behaviour of the functor $\text{St}_1$:		
-		\begin{theorem}
-			Let $\C$ and $\D$ be simplicial computads, and $f: \C \to \D$ a simplicial computad morphism. Then there is a commutative square
-			\begin{center}
-			\begin{tikzcd}
-				\mathcal{F}\langle \text{at}(\C) \rangle \ar[r, "\hat{f}"] \ar[d] 
-					& \mathcal{F} \langle \text{at}(\C) \rangle \ar[d] \\
-				\text{St}_1\C \ar[r, "f"] 
-					& \text{St}_1\D
-			\end{tikzcd}
-			\end{center}
-			Where by $\mathcal{F}\langle \text{at}(\C)\rangle $ we mean the free $\tensorcrossedcat$ generated by the atoms as $\C$, and by $\hat{f}$ we mean the morphism given by this.
-		\end{theorem}
-		This is essentially a generalization of the main theorem in Tonks, and so we unsurprisingly will adapt the method there to our case here. Perhaps some notation... \TODO{this.}
-		\begin{proof}[Proof of previous theorem]
-			The proof is essentially a vast generalization of the eilenberg-zilber proof given by Tonks. 
-		\end{proof}
-%		\begin{theorem}
-%			There is a model structure on $\tensorcrossedcat$ where a functor $F$ is:
-%			\begin{itemize}
-%				\item A weak equivalence if $\text{Ho}(F): \text{Ho}(C) \to \text{Ho}(D)$ is weak equivalence, and for every $x,y \in \ob(C)$ the map $C[c,y] \to D[Fx,Fy]$ is a weak equivalence (of crossed complexes).
-%				\item A fibration if $\text{Ho}(F): \text{Ho}(C) \to \text{Ho}(D)$ is an isofibration, and for every $x,y \in \ob(C)$ the map $C[c,y] \to D[Fx,Fy]$ is a fibration (of crossed complexes).
-%			\end{itemize}
-%		\end{theorem}
-%		\begin{proof}
-%			The model structure is the one transferred along the functor $U_1$. The existence of the model structure is guaranteed by the fact that $\ssetcat$ is combinatorial and locally presentable and $\tensorcrossedcat$ is locally presentable \TODO{get the specific references for this fact. reference for local presentability is in Kelly and Lack.}
-%		\end{proof}
-	
-\section{Warmup: the groupoid case}
-	\begin{theorem}
-		Let $f: G \to H$ be a crossed complex morphism of relatively free type, with $G$ a crossed complex of free type. 
-		If $f$ is a weak equivalence, then it is $J$-cellular, where $J$ is the generating acyclic cofibrations.
+if $n \ge 2$, $ 2 \le k \le n$; by the Eckmann-Hilton argument these groups are abelian if $n \ge 3$.
+We think of these $n$-cells $\tilde{\alpha}$ as being ``unbased $n$-cell data''; given $s(\alpha)$ and $\tilde{\alpha}$ we can recover $\alpha$ via whiskering; moreover for any two composable $\alpha$ and $\beta$ in $G_n$ we can recover the composition $\alpha \circ_{n-1} \beta$ via $\tilde{\alpha} + \tilde{\beta}$ and $s(\alpha)$. 
+	The effect of the functor $\takeapart$ is remember only the cells $\tilde{\alpha}$ and assemble them into a crossed complex, and the effect of $\puttogether$ is to take the cells $\tilde{\alpha}$ and recursively piece them together to recover the original $n$-cells.
+	\\
+	\indent The reason that we are concerned with $\crcom$ is that its chain-complex-like nature makes it often easier to work with directly than $\stinfty$; in particular we have by the above an equivalence of categories $\omegancat{1} \cong \cartcrossedcat $, and for the remainder of the paper we will use the later as our model of choice for $(\omega,1)$-categories.
+	\begin{theorem}\label{thm:crossed-complex-reflects-weak-equivalences}
+		The fundamental crossed complex functor $\st_0: \sset \to \crcom$ reflects weak equivalences.
 	\end{theorem}
-	\begin{proof}
-		We will assume $G$ is connected, since in the general case we can work one connected component at a time; we pick some basepoint $g$.
-		We will inductively show that we can find a (relative) generating set for $H$ relative to $G$ which exhibits $f$ as a $J$-cellular map.
-		For $n \in \mathbb{N}$, denote by $K_n$ the set of $n$ dimensional generators adjoined to $G$ to make $H$. 
-		Note that $K_1$ is a connected graph on $K_0$ and hence has a spanning tree; call it $\mathcal{T}$, and orient each edge $e \in \mathcal{t}$ such that $s(e)$ is closer to $g$ (in $\mathcal{T}$) than $t(e)$. 
-		We note that a free generating set for $H_1$ is simply given by a spanning tree as well as a free generating set for $pi_1(H,g)$; therefore we can change basis so that $K_1$ consists of elements of $\mathcal{T}$ and loops at $g$.
-		Then we can define our acyclicity function in dimension $0$ via
-		$$A_0(k) = \text{The unique } \ell \in \mathcal{T} \text{ such that } t(\ell) = k$$ 
-		We now have that $K_1^\delta$ consists of loops based at $g$.
-		\\\\
-		We now proceed to define $A_1$; by our previous analysis, it will take loops on the object $g$ to elements of $H_2(g)$. 
-		By acyclicity of $f$, for every $\ell \in K_1^\delta$, there is some $x \in H_2(g)$ with $\delta(x) = \ell - \alpha$, for some $\alpha \in G_1(g,g)$. Note that freely adjoining $\ell$ to $G_1$ is equivalent to freely adjoining $\ell - \alpha$, so by changing basis we can assume that every $\ell \in K_1^\delta$ is trivial in $\Pi_1(H)$.
-		In other words, we can assume that for every $\ell \in K_1^\delta$ there is some $x \in H_2(g)$ such that $\delta(x) = \ell$; in other words we can assume surjectivity of the map $\mathcal{F}\langle K_2 \rangle \to \mathcal{F}\langle K_1^\delta \rangle$.
-	\end{proof}
-\section{Post-Warmup: The higher case}
-	The goal of this section is to prove the following theorem:
-	\begin{theorem}
-		Let $\C$ and $\D$ be cofibrant objects in $\tensorcrossedcat$, and $f: \C \to \D$ an identity-on-objects morphism in $\tensorcrossedcat$. 
-		Then if $\st(f)$ is a weak equivalence, so is $f$.
-	\end{theorem}
-	\begin{proof}
-		By standard model category techniques, we reduce to the case where $f$ is a cellular map, with $\C$ a cellular object. 
-		Denote by $K_i$ the set of $i$-cells adjoined to $C$ to create $D$.
-		We note that $\st$ preserves the fundamental groupoid $\Pi_1$ at every hom-object. 
-		Hence in particular, it preserves the homotopy category. 
-		Hence, for every cell $a \in K_0$, adjoined in the hom object $\C[x,y]$, it is connected (in $D$) to some connected component of $\C[x,y]$. 
-		Pick some ordering on $K_1$, and let $K_1^\nabla$ be the subset of $K_1$ of all those cells such that when they are adjoined, it changes the connected components of the graph whose vertices are connected components of $\C$ and connected components containing some $a \in K_0$.
-		Then for each $\ell \in K_1^\nabla$, there are two possibilities:
+\subsection{Monoidal structures on Crossed Complexes} 
+The category of crossed complexes has two monoidal structures that are of interest to us in this paper: the first is the cartesian monoidal structure.
+\begin{theorem}
+	Let $C,D \in \crcom$. Their cartesian product $C \times D$ is the crossed complex
+	\begin{center}
+	\begin{tikzcd}
+		C_0 \times D_0 & C_1 \times D_1 \ar[l, "s", shift right = 2, swap] \ar[l, "t", shift left = 2] & C_2 \times D_2 \ar[l, "\delta_2"] &  C_3 \times D_3 \ar[l,"\delta_3"] & \cdots \ar[l]
+	\end{tikzcd}
+	\end{center}
+	where $C_0 \times D_0$ is the product of sets and $C_i \times D_i$ is the (morphism set of the) cartesian product of groupoids. The boudnary maps and the action of $C_1 \times D_1$ are given component wise, and the natural maps $C \times D \to C$ and $C \times D \to D$ are given by levelwise projections.
+\end{theorem}
+The proof is routine. 
+\par The second monoidal structure on $\crcom$ that we are interested in we shall simply call the \textit{tensor product} and notate by $\otimes$. This product corresponds to the gray tensor product of $\omega$-groupoids along the equivalence of categories $\stinfty \cong \crcom$. An abstract definition is given in \TODO{reference}, we give here a relatively concrete generators-and-relations type definition:
+\begin{definition}
+	For $C,D \in \crcom$, their tensor product $C \otimes D$ is presented as follows:\footnote{see the tonks eilenberg zilber paper} 
+	it has generators given by $c_m \otimes d_n \in (C \otimes D))_{m+n}$ for $c_m \in C_m$	and $d_n \in D_n$. The source and (target maps, when relevant) are given componentwise. 
+	The relations are given as follows:
+	$$
+	(c_m \otimes d_n)^{a_i \otimes b_j} = 
+	\begin{cases}
+		c_m^{a_i} \otimes d_n & \text{if }m \ge 2\text{ and } b_j = sd_n \\
+		c_m \otimes d_n^{b_j} & \text{if } n \ge 2 \text{ and } a_i = sc_m
+	\end{cases}
+	$$
+	$$
+	(c_mc'_m \otimes d_n) = 
+	\begin{cases}
+		c_m \otimes d_n \cdot c'_m\otimes d_n & \text{if }m = 0 \text{ or } n \ge 2 \\
+		c'_m \otimes d_n \cdot (c_m \otimes d_n)^{c'_m \otimes sd_n} & \text{if } n = 1 \text{ and } m \ge 1
+	\end{cases}
+	$$
+	Symmetrically, we have
+	$$
+	(c_m \otimes d_nd'_n) = 
+	\begin{cases}
+		c_m \otimes d_n \cdot c_m\otimes d'_n & \text{if } n = 0 \text{ or } m \ge 2 \\
+		(c_m \otimes d_n)^{sc_m \otimes d_n'} \cdot (c_m \otimes d'_n) & \text{if } n = 1 \text{ and } m \ge 1
+	\end{cases}
+	$$
+	The boundary maps are given by 
+	$$\del (c_m \otimes d_n) = \del(c_m) \otimes d_n \cdot c_m \otimes \del(d_n)$$
+	Except in the cases where the degree(s) are $1$. If $m = 1$, replace the first term with
+	$$(sc_1 \otimes d_n)^{-1} \otimes (tc_1 \otimes d_n)^{c_1 \otimes sd_n}$$
+	and similarly for the case $n = 1$.
+	If $m = n = 1$, then in particular 
+	$$\del(c_1 \otimes d_1) = (sc_1 \otimes d_1)^{-1} \cdot (c_1 \otimes td_1)^{-1} \cdot (tc_1 \otimes d_1) \cdot (c_1 \otimes sd_1) $$
+\end{definition}
+The unit for $\otimes$ is given by the ``one-point crossed complex'' $\bullet$ in which the underlying groupoid is the groupoid with one object and no nonidentity morpisms, and all the higher groups are trivial. 
+Since this is also the terminal object, for crossed complexes $C$ and $D$ we have maps $C \otimes D \to C \otimes \bullet \cong C$ and $C \otimes D \to \bullet \otimes D \cong D$; 
+these induce a map $C \otimes D \to C \times D$. 
+\begin{example}\label{example:tensor-v-product-intervals}
+	let $I$ be the crossed complex with $C_1$ the contractible groupoid \begin{tikzcd} 0 \ar[r, "\ell"] & 1\end{tikzcd}, and consider the tensor product $I \otimes I$. By the description above, the underlying groupoid of $I \otimes I$ has four generators, which form a \textit{non-commuting} square
+	\begin{center}
+	\begin{tikzcd}
+		0\otimes 0  \ar[r, "\ell \otimes 0"] \ar[d, "0 \otimes \ell"]&  1 \otimes 0 \ar[d, "1 \otimes \ell"] \\
+		0 \otimes 1 \ar[r, "\ell \otimes 1"] & 1 \otimes 1
+	\end{tikzcd}
+	\end{center}
+	There is one generator in dimension 2, the tensor $\ell \otimes \ell$, and the boundary is exactly the square above (that is, the composition of the morphisms in the square given by starting at $0 \otimes 0$ and then going once counterclockwise around the square). 
+	Therefore, this is a ``weakly commuting'' square, with $\ell \otimes \ell$ witnessing the weak commutativity. 
+	By contrast, the crossed complex $I \times I$ is the ``strictly commuting'' square, whose underlying groupoid is the commuting square
+	\begin{center}
+	\begin{tikzcd}[sep = large]
+		{(0{,} 0)}  \ar[r, "(\ell{,} {\id_0})"] \ar[d, "({\id_0}{,}\ell)"] \ar[rd, "({\ell}{,} \ell)"] 
+			&  {(1{,}0)} \ar[d, "({\id_1}{,} \ell)"] \\
+		{(0{,} 1)} \ar[r, "(\ell{,} {\id_1})"] 
+			& {(1{,} 1)}
+	\end{tikzcd}
+	\end{center}
+	The natural map $I \otimes I \to I \times I$ is given by collapsing the generating $2$-cell $\ell \otimes \ell$.
+\end{example}
+This example demonstrates the general behaviour of the map $C \otimes D \to C \times D$, which can be described as collapsing all of the tensors $c_m \otimes d_n$ where both $m$ and $n$ are nonzero. 
+It sends a tensor $c_m \otimes d_0$ to the element $(c_m, e)$ where $e$ is the identity element at $s(d_n)$, and similarly for tensors $c_0 \otimes d_n$. 
+This description is fairly immediate from the definition of the map. 
+\section{The Main Constructions: Model Structures and Quillen Adjunctions}
+	The object of this paper is to show that the composition of left adjoints in the diagram
+	\begin{center}
+	\begin{tikzcd}[sep = large]
+		\ssetcat \ar[r, bend left = 20, "\leftone "] & \tensorcrossedcat \ar[l, bend left = 20, "\rightone "] \ar[r, bend left = 20, "\lefttwo "] & \cartcrossedcat \ar[l, bend left = 20, "\righttwo "]
+	\end{tikzcd}
+	\end{center}
+	reflects weak equivalences between cofibrant objects. 
+	In this section we specify what the model structures are on each category, and describe how the functors are induced. 
+\subsection{The Bergner model structure on $\ssetcat$}
+	Our model of choice for $(\infty,1)$ categories will be the Bergner model structure on $\ssetcat$. We recall here the definitions: \\
+	\begin{theorem}[\TODO{reference Bergner}]
+		There is a model category structure on $\ssetcat$ where a morphism $f: \C \to \D$ is:
 		\begin{enumerate}
-			\item adjoining $\ell$ connects $a$ to some connected component of $\C[x,y]$
-			\item adjoining $\ell$ connects $a$ to some other atomic element $b$ 
+			\item A weak equivalence if it induces an equivalence of categories $\pi_0 \C \to \pi_0 \D$, as well as weak equivalences of simplicial sets $\C[x,y] \to \D[fx,fy]$ for all $x,y \in \ob \C$.
+			\item A fibration if it induces an isofibration of homotopy categories $\Ho\C \to \Ho \D$, as well as fibrations of simplicial sets $\C[x,y] \to \D[fx,fy]$ for all $x,y \in \ob \C$.
+			\item A cofibration if it has the left lifting property with respect to the acylic fibrations.
 		\end{enumerate}
-		By ordering $K_0$, we can therefore assign each $a \in K_0$ some $\ell_a \in K_1^\nabla$ such that adjoining $\ell_a$ connects the connected component of $a$ to some connected component of $\C[x,y]$ or to the connected component of $b$, with $b < a$ in the ordering.
-		In each hom object $\D[x,y]$, pick a rooted spanning tree for each connected component of the underlying groupoid $\D[x,y]_{\le 1}$. 
-		Then for every $a \in K_0$ there is a unique rooted path $p_a: a \to w$ for $w \in \C_0$ that is formed by this spanning tree. 
-		We claim that we can replace $\ell_a$ by $p$ and in the cellular decomposition for $\D$ under $\C$. 
-		Let $\tilde{\C}$ be the relative cellular object of $\tensorcrossedcat$ with cells given by $K_0$ and $K_1 \setminus \{\ell_a\}$; then it suffices to find an isomorphism between the two pushouts
-		\begin{center}
-		\begin{tikzcd}
-			\sus[\partial I] \ar[d] \ar[r, "\nabla \ell_a"] & \tilde{\C} \ar[d] \\
-			\sus[I] \ar[r] & \tilde{\C}[\ell_a]
-		\end{tikzcd}
-		\end{center}
-		and 
-		\begin{center}
-		\begin{tikzcd}
-			\sus[\partial I] \ar[d] \ar[r, "\nabla p_a"] & \tilde{\C} \ar[d] \\
-			\sus[I] \ar[r] & \tilde{\C}[p_a]
-		\end{tikzcd}
-		\end{center}
-		We have an obvious map $\tilde{\C}[p_a] \to \tilde{\C}[\ell_a]$ given by sending the freely adjoined $p_a$ to $p_a$ in $\C$. 
-		We define its inverse as follows: since the connected components of $\tilde{\C}[\ell_a]$ are the same as those of $\C$, 
-		Suppose that $\ell: w_1 \to w_2$, with $w_1$ and $w_2$ elements of $\D[x,y]_0$: in other words, words on the generators of the underlying category of $\D$. 
-		Then, for $\ell$ to connect $a$ to some connected component of $\C[x,y]$, we must have that 
-		\\\\
-		\TODO{finish the above argument}
-		\\\\
-		\TODO{the 1-2 dimensional case}
-		\\\\
-		\TODO{the 2-3 dimensional case; should be easy but we'll be a tad careful}
-		\\\\
-		Now, the rest of the dimensions shall be handled by a uniform induction argument: we suppose that we are adjoining cells of dimension $n$ and higher for $n \ge 3$, and that the induced map $\C \to \D$ is a weak equivalence. We furthermore suppose inductively that each of the adjoined $n$-cells $a \in K_n$ has null boundary.
-		Since $\C \to \D$ is a weak equivalence, it follows that each for $a \in K_n$ there is some $n+1$-cell with boundary $a + k$, for $k$ an $n$-cell of $\C$. We can replace $a$ with $a+k$ to strengthen our assumption to saying that $a$ is nullhomologous; so there is some $\alpha$ with $d(\alpha) = a$. 
-		
+	\end{theorem}
+	\begin{definition}
+		Let $I'$ be the set of functors of $\sset$-categories of the form $\sus[\del \Delta^n \to \Delta^n]$. A \emph{simplicial computad} is an $I'$-cellular object in $\ssetcat$, and a \textit{relative simplicial computad} is an $I'$-cellular morphism in $\ssetcat$.
+	\end{definition}
+	In other words, a simplicial computad is an $\sset$-category which is given by freely adjoining simplices to individual hom-spaces. 
+\subsection{The model structure on $\tensorcrossedcat$.}
+	In \TODO{reference} the authors show that $\omegancat{n}$ is a monoidal model category (symmetric for $n = 0$ and satisfies the monoid axiom of \TODO{reference}. In particular, since the symmetric monoidal structure is equivalent to the tensor product $\otimes$ of crossed complexes under the equivalence of categories between $\stinfty$ and $\crcom$ (see \TODO{reference}), $\crcom$ is a monoidal model category satisfying the monoid axiom. 
+	Since the unit for $\otimes$ is cofibrant, it furthermore satisfies the weak unit axiom of \TODO{reference}.
+	Finally, we note that $\crcom$ is combinatorial, and closed monoidal, 
+	so overall it is a combinatorial closed symmetric monoidal model category satisfying the monoid axiom.s
+	It then follows by \TODO{reference Muro}:
+	\begin{theorem}
+		There is a model category structure on $\tensorcrossedcat$ in which a map $f: \C \to \D$ is:
+		\begin{itemize}
+			\item A weak equivalence if each of the maps $\C[x,y] \to \D[fx,fy]$ is a weak equivalence in $\crcom$, and also the induced map $\Ho(f): \Ho(\C) \to \Ho(\D)$ is an equivalence of categories
+			\item An acyclic fibration if it is surjective on objects and each of the maps $\C[x,y] \to \D[fx,fy]$ is an acyclic fibration in $\crcom$
+			\item A cofibration if it has the left lifting property with respect to the acyclic fibrations
+		\end{itemize}
+	\end{theorem}
+	This is phrased slightly differently then in \TODO{reference Muro}; in that paper the notion of weak equivalence is one in which $\Ho(f) : \Ho(\C) \to Ho(\D)$ is essentially surjective. 
+	However, if the maps $\C[x,y] \to \D[fx,fy]$ are weak equivalences then in particular they are $\pi_0$-isomorphisms; hence $\Ho(f)$ is fully faithful, and so an equivalence if and only if it is essentially surjective.
+
+\subsection{\TODO{clean up and clarify} The model structure on $\cartcrossedcat$}
+	\TODO{in some ways this is the simplest, but it is really the trickiest - it's not immediately obvious to me whether or not $\crcom$ is even a cartesian model category; if it is then it should be the same model structure on enriched categories as the folk model structure but that is also not immediately obvious. must come back to this to clarify. Worst case I have to go through the arguments by hand and say ``well, we aren't in this situation, but we still have the adjoint and it is a quillen pair because blah''}
+	\\\\
+	In general, $\omegancat{n}$ has a model structure due to \TODO{reference}. For our purposes, we only need to consider the model structure on $\omegancat{1}$. It turns out the model structure in  ----- coincides with the one induced by the Dwyer-Kan model structure and the equivalence of categories with $\cartcrossedcat$. Recall
+	\begin{definition}
+	Let $C$ be an $(\omega,1)$-category, $n \in \mathbb{N}$.
+		\begin{itemize}
+			\item We say that an $1$-cell $x \in C_n$ is \emph{equivalent} to $y \in C_n$ if there is a reversible $(n+1)$-cell $u: x \to y$.
+			\item We say that an $(n+1)$-cell $u \in C_{n+1}$ is \emph{reversible} if there is an $(n+1)$ cell $\overline{u} \in C_{n+1}$ such that $u * \overline{u}$ and $\overline{u} * u$ are each equivalent to identity $(n+1)$-cells.
+		\end{itemize}
+	\end{definition}
+	\begin{definition}
+		Let $\mathcal{W}$ be the class of morphisms $f: C \to D$ in $\omegancat{1}$ such that:
+		\begin{enumerate}
+			\item For each $0$-cell $y$ in $D$, there is a $0$-cell $x$ in $X$ such that $fx$ is $\omega$-equivalent to $y$.
+			\item For each pair of parallel $n$-cells $x$ and $x'$ in $C_n$, and each $(n+1)$-cell $v:fx \to fx'$ in $D$, there is an $(n+1)$-cell $u:x \to x'$ such that $f u$ is equivalent to $v$.
+		\end{enumerate}
+	\end{definition}
+	\begin{definition}
+		Let $C$ be an $(\omega,1)$-category. The \textit{homotopy category} of $C$ is the $1$-category with objects those of $C$, and morphisms the $1$-cells of $C$ modulo the relation of $\omega$ equivalence. Note that 
+	\end{definition}
+	\begin{lemma}: 
+		A functor $f: C \to D$ of $(\omega,1)$ categories is an equivalence if and only if:
+		\begin{itemize}
+			\item $\Ho(f)$ is essentially surjective, and
+			\item for each $x,y \in C_0$, $f: C[x,y] \to D[x,y]$ is a weak equivalence of $\omega$-groupoids (in the sense of being a weak equivalence of $\omega$-categories).
+		\end{itemize}
+	\end{lemma}
+	\begin{proof}
+		Do I include this? Seems too obvious.
 	\end{proof}
+	\begin{theorem}
+		There is a model structure on $(\omega,1)-\text{Cat}$ in which:
+		\begin{itemize}
+			\item A functor $F: \C \to \D$ is a weak equivalence precisely if it induces an essential surjection of homotopy categories $\text{Ho}(F) : \text{Ho}(\C) \to \text{Ho}(\D)$ and for every $x,y \in \text{Ob}(\C)$ it induces a weak equivalence of $(\omega,0)$-categories $\C[x,y] \to \D[Fx,Fy]$.
+			\item A functor $F \C \to \D$ is a trivial fibration precisely if it is surjective on objects and for every $x,y \in \text{Ob}(\C)$ it induces a trivial fibration of $(\omega,0)$-categories $\C[x,y] \to \D[Fx,Fy]$. 
+		\end{itemize}			 
+	\end{theorem}
+	\begin{proof}
+		See \TODO{reference}
+	\end{proof}
+	This immediately gives us the following model structure:
+	\begin{theorem}
+		There is a model structure on $\cartcrossedcat$ in which
+		\begin{itemize}
+			\item A functor $F: \C \to \D$ is a weak equivalence precisely if it induces an essential surjection of homotopy categories $\text{Ho}(F) : \text{Ho}(\C) \to \text{Ho}(\D)$ and for every $x,y \in \text{Ob}(\C)$ it induces a weak equivalence of crossed complexes $\C[x,y] \to \D[Fx,Fy]$.
+			\item A functor $F \C \to \D$ is a trivial fibration precisely if it is surjective on objects and for every $x,y \in \text{Ob}(\C)$ it induces a trivial fibration of crossed complexes $\C[x,y] \to \D[Fx,Fy]$. 
+		\end{itemize}
+	\end{theorem}
+\subsection{The model structure on $\grpdcat$}
+	 The category $\grpd$ of (ordinary) groupoids is cartesian closed, with the mapping groupoid $\grpd [G,H]$ being the category of functors $G \to H$ (which is a groupoid). Furthermore, it is a closed monoidal model category with respect to the cartesian monoidal structure, so we have a model structure on $\grpdcat$. 
+	 \begin{theorem}
+	 	There is a model structure on $\grpdcat$, the category of categories enriched in $\grpd$ with the cartesian monoidal structure, in which a morphism $F: \C \to \D$ is:
+	 	\begin{itemize}
+	 		\item A weak equivalence if it induces an equivalence of categories $\ho(F): \ho(\C) \to \ho(\D)$, and
+	 		\item A fibration if it is surjective on objects and a local fibration
+	 	\end{itemize}
+	 \end{theorem}
+
+\section{The adjoint functors}
+	In this section we define all of the quillen adjoint pairs that we discuss towards proving our main theorem. First, we briefly and somewhat informally recall some enriched category theory: recall that if $\V$ in which $L$ presand $\W$ are monoidal categories and $L: \V \leftrightarrows \W: R$ an adjunction with $L$ strong monoidal (meaning $L$ preserves the monoidal product up to natural isomorphism), then they induce an adjunction $L: \V-\mathcal{Cat} \leftrightarrows  \W-\mathcal{Cat}$ between categories of enriched categories, called the \textit{change of enrichment} or sometimes \textit{change of base}. These are given as the identity on object sets and by applying $L$ or $R$ locally to the hom-objects. However, often we are presented with an adjunction in which $L$ does not preserve the monoidal product, and would still like to define an adjunction $\V-\mathcal{Cat} \leftrightarrows \W-\mathcal{Cat}$. A classical theorem tells us that we can do this provided $R$ is lax monoidal:
+	\begin{definition}
+		A \emph{lax monoidal} functor $F: \V \to \W$ between monoidal categories is a functor equipped with a map $\mathbb{I}_\W \to F(\mathbb{I}_\V)$ and a natural transformation $F(-) \otimes_\W F(-) \to F(- \otimes_\V -)$, satisfying associativity and unitality conditions.
+	\end{definition}
+	
+	\begin{theorem}[\TODO{reference}] \label{thm:lax-monoidal-induces-enriched}
+		Let $\V$ and $\W$ be monoidal categories, and $L : \V \leftrightarrows \W: R$ an adjunction with $R$ lax monoidal. Then there is an induced adjunction 
+		$$L^{\text{cat}}: \V-\mathcal{Cat} \leftrightarrows \W-\mathcal{Cat}: R$$
+		In which both adjoints are identity on objects, and for $\C \in \W-\mathcal{Cat}$ and $x,y \in \ob \C$, $R(\C)[x,y] = R(\C[x,y])$, with composition maps given on $R(\C)$ defined using the lax monoidal structure of $R$. If $L$ is strong monoidal, then $L^{\text{cat}}$ is also defined by applying $L$ locally.
+	\end{theorem}
+	In general if $L$ is not strong monoidal, the left adjoint $L^{\text{cat}}$ is not given by applying $L$ locally. This makes it both more interesting but also much harder to study. However, \TODO{muro} shows that if $\V$ and $\W$ are monoidal model categories and $L$ is Quillen monoidal (a homotopical generalization of strong monoidal), then the derived functor of $L^{\text{cat}}$ can be calculated by applying $L$ locally. 
+	\par Our quillen pairs will be obtained by applying the previous theorem to the following commutative (up to natural isomorphism) diagram of adjoint quillen pairs between monoidal model categories:
+	\begin{center}
+	\begin{tikzcd}[sep = huge]
+		\sset^\times \arrow[r, bend left = 5, shift left = 1, "\st_0 "] \arrow[rd, bend left = 10, shorten = 5, "\Pi_1 "] 
+			& \crcom^\otimes \arrow[r, bend left = 5, shift left = 1, "\Id "] \ar[l, bend left = 5, "U_0 "] \ar[d, bend left = 10, shift left = 2, "\Pi_1 "]
+			& \crcom^\times \ar[l, bend left = 5, "\Id "] \ar[ld, bend left = 10, shorten = 5, "\Pi_1 "] 
+		\\
+			& \grpd^\times \ar[lu, bend left = 10, shorten = 5, "N"] \ar[u, bend left = 10, "\iota "] \ar[ru, bend left = 10, shorten = 5, "\iota "]
+	\end{tikzcd}
+	\end{center}
+	In this diagram, each right adjoint is lax monoidal (and in fact, the vertical and diagonal left adjoints are strong monoidal). By Theorem \ref{thm:lax-monoidal-induces-enriched}, we have an induced diagram of adjoints, which we name as in the below diagram:
+	\begin{center}
+	\begin{equation}\label{diagram:enriched-functors}
+	\begin{tikzcd}[sep = huge]
+		\ssetcat \arrow[r, bend left = 5, shift left = 1, "\leftone "] \arrow[rd, bend left = 10, shorten = 5, "\hotwo "] 
+			& \tensorcrossedcat \arrow[r, bend left = 5, shift left = 1, "\lefttwo "] \ar[l, bend left = 5, "\rightone "] \ar[d, bend left = 10, shift left = 2, "\hotwo "]
+			& \cartcrossedcat \ar[l, bend left = 5, "\righttwo "] \ar[ld, bend left = 10, shorten = 5, "\hotwo "] 
+		\\
+			& \grpdcat \ar[lu, bend left = 10, shorten = 5, "N"] \ar[u, bend left = 10, "\iota "] \ar[ru, bend left = 10, shorten = 5, "\iota "]
+	\end{tikzcd}
+	\end{equation}
+	\end{center} 
+	Just as we abuse notation by using $\Pi_1$ to denote the fundamental groupoid for both simplicial sets and crossed complexes, we abuse notation by using $\hotwo$ to denote the three induced functors; in each case we think of it as the functor which takes an enriched category to its homotopy $(2,1)$-category. We also use $\iota$ and $N$ to describe both the right adjoints out of $\grpd$ and out of $\grpdcat$. 
+	We will describe each of these in turn and prove they are quillen pairs. 
+\subsection{The adjunction between $\ssetcat$ and $\tensorcrossedcat$.}
+	We describe the ``local strictification'' adjunction 
+	$$
+		\leftone: \sset-\text{Cat} \rightleftarrows \tensorcrossedcat: \rightone
+	$$
+	The adjunction is induced using Theorem \ref{thm:lax-monoidal-induces-enriched} from the adjunction $\text{St}_0: \sset \rightleftarrows \crcom :  U_0$.
+	\begin{theorem}
+		There is a quillen adjunction 
+		$$
+		\leftone: \sset-\text{Cat} \rightleftarrows \tensorcrossedcat: \rightone
+		$$
+		where each functor is the identity on the object set and 
+		for $\D \in \tensorcrossedcat$ the $\sset$-category $\rightone(\D)$ has $\rightone(\D)[x,y] = U_0(\D[x,y])$. 
+	\end{theorem}
+	\begin{proof}
+		By \TODO{reference monidal omega}, $\crcom$ is a monoidal model category with respect to $\otimes$, and furthermore satisfies the monoid axiom. By \TODO{reference tonks}, the adjunction $\st_0 \dashv U_0$ is a weak monoidal quillen pair in the sense of \TODO{Schwede Shipley reference}. Thus this follows by \TODO{reference muro}.
+	\end{proof} 
+	Note that while $\rightone$ is given by applying $U_0$ locally, $\leftone$ is not. 
+	\begin{example}
+		Consider the $\sset$-category $\C$ given as the pushout in $\ssetcat$
+		\begin{center}
+		\begin{tikzcd}
+		\bullet \ar[d, "\iota_1"] \ar[r, "\iota_0"] & \sus(\Delta^1) \ar[d, dashed]\\
+		\sus(\Delta^1) \ar[r, dashed] & \C
+		\end{tikzcd}
+		\end{center}
+		Thus $\C$ has three objects, which we call $\{0,1,2\}$, and $\C[0,1] \cong \C[1,2] \cong \Delta^1$, while $\C[0,2] \cong \Delta^1 \times \Delta^1$, while the other hom-objects are either empty or a point. 
+		It is not hard to prove that for any simplicial set $X$, $\leftone(\sus(X)) \cong \sus(\st_0(X))$. So, since $\leftone$ must preserve pushouts, we have a pushout diagram
+		\begin{center}
+		\begin{tikzcd}
+		\bullet \ar[d, "\iota_1"] \ar[r, "\iota_0"] & \sus(\st_0(\Delta^1)) \ar[d, dashed]\\
+		\sus(\leftone(\st_0^1)) \ar[r, dashed] & \leftone(\C)
+		\end{tikzcd}
+		\end{center}
+		And so $\leftone(\C)[0,2]$ must be $\Delta^1 \otimes \Delta^1$, which we described in example \ref{example:tensor-v-product-intervals}, in particular it has one generator in dimension $2$.
+		On the other one, $\st_1(\C[0,2])$ is the crossed complex which has a fundamental groupoid formed by two noncommuting triangles
+		\begin{center}
+	\begin{tikzcd}[sep = large]
+		0\otimes 0  \ar[r] \ar[dr] \ar[d] &  1 \otimes 0 \ar[d] \\
+		0 \otimes 1 \ar[r] & 1 \otimes 1
+	\end{tikzcd}
+	\end{center}
+	and two generators in dimension $2$ with boundaries the bottom left triangle and the upper right triangle, corresponding to the two nondegenerate simplices. 
+	So, $\leftone(\C)[0,2] \not \cong \st_1(\C[0,2])$.
+	However, they are weakly equivalent, as they are both contractible.
+	\end{example}
+	This example is just a special case of the fact that $\st_0 \dashv U_0$ is not strong monoidal. 
+	If $\st_0 \dashv U_0$ were strong monoidal; in other words if we had that $\st_0(X \times Y) \cong \st_0(X) \otimes \st_0(Y)$, then we could compute $\leftone$ by applying $\st_0$ locally. 
+	However, we do know that $\st_0 \dashv U_0$ is ``strong monoidal up-to-homotopy;'' i.e. in general we have a natural weak equivalence $\st_0(X \times Y) \to \st_0(X) \otimes \st_0(Y)$. 
+	Hence, by \TODO{reference muro} we have the following:
+	\begin{lemma}\label{lem:local-strictification-is-locally-strictification}
+		Let $\C$ be a cofibrant $\sset$-category. Then for objects $x,y$ in $\C$, we have natural isomorphism in $\Ho(\crcom)$
+		$$\st_1\left( \C[x,y] \right) \cong \leftone(\C)[x,y]$$
+	\end{lemma}
+	Hence, we can compute $\leftone$ up to local weak equivalence (just not up to isomorphism) by applying $\st_1$ to the hom-spaces. 
+	We also note the following useful lemma:
+	\begin{lemma}\label{lem:local-strictification-preserves-homotopy-category}
+		Let $f: \C \to \D$ be a morphism in $\ssetcat$. Then we have a commutative square
+		\begin{center}
+		\begin{tikzcd}
+			\Ho(\C) \ar[r, "\Ho(f)"] \ar[d, "\sim" {rotate=90, anchor=north}]
+				& \Ho(\D) \ar[d, "\sim" {rotate=90, anchor=north}]
+			\\
+			\Ho(\leftone(\C)) \ar[r, "\Ho(\leftone(f))"] 
+				& \Ho(\leftone(\D))
+		\end{tikzcd}
+		\end{center}
+		in which the vertical arrows are isomorphisms of categories.
+	\end{lemma}
+	\begin{proof}
+		This follows from the fact that $\leftone$ preserves the object set, and $\pi_0$ of the hom objects - the first fact being by definition, and the second fact because $\st_1$ preserves $\pi_0$ so by lemma \ref{lem:local-strictification} $\leftone$ preserves $\pi_0$ on the hom-objects, and hence the homotopy category.
+	\end{proof}
+\subsection{\TODO{} The adjunction between $\tensorcrossedcat$ and $\cartcrossedcat$}
+	The adjunction
+	$$
+		\lefttwo: \tensorcrossedcat \rightleftarrows \cartcrossedcat : \righttwo
+	$$
+	is similar, but much less well-behaved than the adjunction $\leftone \dashv rightone$. 
+	\begin{theorem}
+		There is an adjunction 
+		$$
+		\lefttwo: \tensorcrossedcat \rightleftarrows \cartcrossedcat : \righttwo
+		$$
+		Where each functor is the identity on the object set, and for $\D \in \cartcrossedcat$ we have that $\righttwo(\D)[x,y] = \D[x,y]$. 
+	\end{theorem}
+	\begin{proof}
+		The natural map $C \otimes D \to C \times D$ makes the identity functor on $\crcom$ a lax monoidal functor from $(\crcom, \times) \to (\crcom, \otimes)$. 
+		Thus, $\righttwo$ as defined above exists, and the left adjoint exists by \TODO{reference muro and whatever muro references}. 
+	\end{proof}
+	Unlike in the previous case, we do not have a weak equivalence $C \otimes D \simeq C \times D$, and therefore we cannot approximate $\lefttwo$ via applying the identity hom-object-wise. 
+	We also do not have the necessary hypotheses to immediately conclude that this is a quillen adjunction. However, this turns out to still follow via analysis.
+	\begin{theorem}
+		The adjunction of theorem \TODO{reference theorem} is a quillen adjunction
+	\end{theorem}
+	\begin{proof}
+		% https://arxiv.org/html/2406.02194v1
+		Using the link above, this boils down to showing that every object of $\tensorcrossedcat$ is fibrant. 
+		As remarked by Muro, this does not follow immediately from the fact that every object of $\crcom$ is fibrant. 
+		It must be proved somewhat manually. Hopefully this is not crazy hard, damn.
+		\\\\
+		I think this is not too bad: we construct a single generating interval which is given by just freely adjoining (in $\tensorcrossedcat$) an object, two morphisms, and two $1$-cells. 
+		Then we need to prove that this is actually an interval, which boils down maybe to showing the cofibrant replacements are correct? Probably relevant is the stuff in muro's paper about showing cofibrancy sort of carries downward. 
+		Then we need to show this is generating, which should be the obvious part because a map out of it is exactly the data to show that $x \cong y$.
+	\end{proof} 
+	
+	\begin{lemma}\label{lem:global-strictification-preserves-homotopy-category}
+		Let $f: \C \to \D$ be a morphism in $\tensorcrossedcat$. Then we have a commutative square
+		\begin{center}
+		\begin{tikzcd}
+			\Ho(\C) \ar[r, "\Ho(f)"] \ar[d, "\sim" {rotate=90, anchor=north}]
+				& \Ho(\D) \ar[d, "\sim" {rotate=90, anchor=north}]
+			\\
+			\Ho(\lefttwo(\C)) \ar[r, "\Ho(\lefttwo(f))"] 
+				& \Ho(\lefttwo(\D))
+		\end{tikzcd}
+		\end{center}
+		in which the vertical arrows are isomorphisms of categories.
+	\end{lemma}
+	\begin{proof}
+		This follows from the fact that $\lefttwo$ preserves the object set, and $\pi_0$ of the hom-objects - this second fact is not obvious, but follows from the definition of the hom-objects of $\lefttwo(\C)$ as quotients.
+	\end{proof}
+
+\subsection{The adjunctions with $\grpdcat$}
+	For completeness describe briefly the three vertical adjunctions of Diagram \ref{diagram:enriched-functors}. The three functors called $\Pi_1$ are all strong monoidal, and hence the functors $\hotwo$ are all given by applying $\Pi_1$ locally.
+	\begin{theorem}
+		The functors $\hotwo$ are each left Quillen. 
+	\end{theorem}
+	\begin{proof}
+		This is a direct application of \TODO{reference muro}. 
+	\end{proof}
+\section{Conservativity: Two Special Cases}
+	Our primary interest with strict higher categories is to study how much information is preserved or lost by the process of strictification. In analogy with the strictification of $\infty$-groupoids (spaces) as a nonabelian enrichment of homology, we would hope to prove theorems about the strictification of $(\infty,1)$-categories analagous to theorems about homology. The following theorem is a straightforward consequence of the classical theorem for spaces:
+	\begin{theorem}
+		$\leftone$ is conservative.
+	\end{theorem}
+	\begin{proof}
+		This follows from Lemma \ref{lem:local-strictification-preserves-homotopy-category} and Theorem \ref{thm:crossed-complex-reflects-weak-equivalences}, applying Lemma \ref{lem:local-strictification-is-locally-strictification}.
+	\end{proof}
+	In the rest of this section we will prove that the functor $\lefttwo$ and hence also the composition $\st_1 = \lefttwo \circ \leftone$ reflect weak equivalences between two special types of objects: the ``$2$-truncated'' and the ``$2$-connected.'' We will also show as a consequence that $\st_1$ faithfully detects contractibility.
+\subsection{2-truncated enriched categories}	
+	First, let us recall the natural notions of truncatedness in $\sset$ and $\crcom$:
+	\begin{definition}
+		A simplicial set $X$ is called \emph{$n$-truncated} if for any $x \in X_0$ and $k >n$, the homotopy group $\pi_k(X,x)$ is trivial.
+	\end{definition}
+	\begin{definition}
+		A crossed complex $C$ is called \emph{$n$-truncated} if for any $x \in C_0$ and $k >n$, the homotopy group $\pi_k(X,x)$ is trivial. 
+	\end{definition}
+	This extends naturally to enriched categories:
+	\begin{definition}\label{dfn:n-truncated-ssetcat}
+		Let $\C \in \ssetcat$. Then we call $\C$ \emph{n-truncated} if for any $x,y \in \ob \C$, the simplicial set $\C[x,y]$ is $(n-1)$-truncated.
+	\end{definition}
+	\begin{definition}\label{dfn:n-truncated-crossedcat}
+		Let $\C \in \tensorcrossedcat$ or $\cartcrossedcat$. Then we call $\C$ \emph{n-truncated} if for any $x,y \in \ob \C$, the crossed complex $\C[x,y]$ is $(n-1)$-truncated.
+	\end{definition}
+	\begin{proposition}\label{prop:2-truncated-equivalent-sset}
+		For $\C \in \ssetcat$, the following are equivalent:
+		\begin{itemize}
+			\item $\C$ is $2$-truncated in the sense of definition \ref{dfn:n-truncated-ssetcat}.
+			\item The unit map $\C \to N \circ \hotwo(\C)$ is a weak equivalence.
+		\end{itemize}
+	\end{proposition}
+	\begin{proof}
+		($\Rightarrow$) The unit map $\C \to N \circ \hotwo(\C)$ is the identity on objects, and for any $x,y \in \ob\C$ the map $\C[x,y] \to N \circ \hotwo(\C)[x,y]$ is naturally isomorphic to the map $\C[x,y] \to N \circ \Pi_1(\C[x,y])$. If $\C$ is $2$-truncated, then this map is a weak equivalence. Since $N$ and $\C$ preserve the homotopy category, it follows that $\C \to N \circ \hotwo(\C)$ is a weak equivalence. 
+		\par ($\Leftarrow$) If $\C \to N \circ \hotwo(\C)$ is a weak equivalence, then in particular for $x,y \in \ob\C$, $\C[x,y]$ is weak equivalent to $N \circ \Pi_1(\C[x,y])$ by the above. Since the latter is always $1$-truncated, the result follows.
+	\end{proof}
+	In precisely the same manner of proof we obtain:
+	\begin{proposition}\label{prop:2-truncated-equivalent-tensorcrossed}
+		For $\C \in \tensorcrossedcat$, the following are equivalent:
+		\begin{itemize}
+			\item $\C$ is $2$-truncated in the sense of definition \ref{dfn:n-truncated-crossedcat}.
+			\item The unit map $\C \to \iota \circ \hotwo(\C)$ is a weak equivalence
+		\end{itemize}
+	\end{proposition}
+	
+	\begin{proposition}\label{prop:2-truncated-equivalent-cartcrossed}
+		For $\C \in \cartcrossedcat$, the following are equivalent:
+		\begin{itemize}
+			\item $\C$ is $2$-truncated in the sense of definition \ref{dfn:n-truncated-crossedcat}.
+			\item The unit map $\C \to \iota \circ \hotwo(\C)$ is a weak equivalence
+		\end{itemize}
+	\end{proposition}
+	
+	\begin{lemma}\label{lem:2-truncated-preserved}
+		The functor $\leftone$ sends cofibrant $2$-truncated objects to $2$-truncated objects.
+	\end{lemma}
+	\begin{proof}
+		This follows from the fact that $\st_0$ sends $1$-truncated objects to $1$-truncated objects, along with Lemma \ref{lem:local-strictification-is-locally-strictification}.
+	\end{proof}
+	Note that the above theorem is false for $n > 2$: the functor $\st_0$ does not preserve $n$-truncated objects generally, and hence neither can $\leftone$. 
+	For a counterexample, consider any simplicial set $X$ that is a $K(\mathbb{Z},n)$ for $n > 1$; since the homotopy groups of $\st_0(X)$ are the homology groups of $X$, $\st_0(X)$ is not $n$-truncated. 
+	Hence the simplicial category $\sus[X]$ will be $n+1$ truncated but $\leftone \sus[X]$ will not be. 
+	A counterexample to $\lefttwo$ preserving $n$-truncated objects for $n > 2$ is trickier to construct. 
+	We will give an example later when we analyze the behaviour of $\lefttwo$ on $2$-connected objects. We believe that $\lefttwo$ does not preserve $2$-truncated objects, but lack a good enough description to provide an easy example. \TODO{it's possible I can; I should try for a little bit} 
+	\par 
+	The following special case is not difficult but is noteworthy; it reflects a general trend that weak categories in dimension $\le 2$ are captured up to equivalence by strict categories. 
+	\begin{theorem}
+		If $\C \in \ssetcat$ is $2$-truncated and cofibrant, then the unit $\C \to \rightone \leftone (\C)$ is a weak equivalence 
+	\end{theorem}
+	\begin{proof}
+		By commutativity of Diagram \ref{diagram:enriched-functors}, we have a commutative up-to-isomorphism triangle
+		\begin{center}
+		\begin{tikzcd}
+			\C \ar[rr] \ar[rd] 
+				& & \rightone \circ  \iota \circ  \hotwo \circ \leftone (\C) \ar[ld] 
+			\\
+			& N \circ \hotwo (\C)
+		\end{tikzcd}
+		\end{center}
+		And then by Propositions \ref{prop:2-truncated-equivalent-sset}, \ref{prop:2-truncated-equivalent-tensorcrossed} 2 of the arrows are weak equivalences, so the third is as well (we have used that $\rightone$ preserves weak equivalences, which follows as it is given by locally applying $U_0$, which preserves weak equivalences). 
+	\end{proof}
+	The following theorem is the precise incarnation of the first special case of conservativity; saying that $\lefttwo \circ \leftone$ is conservative on the $(2,1)$-categories.
+	\begin{theorem}
+		The functors $\leftone$, $\lefttwo$, and $\lefttwo \circ \leftone$ reflect weak equivalences between cofibrant, $2$-truncated objects.
+	\end{theorem}
+	\begin{proof}
+		The first two statements follow from applying Propositions \ref{prop:2-truncated-equivalent-sset}, \ref{prop:2-truncated-equivalent-tensorcrossed}, \ref{prop:2-truncated-equivalent-cartcrossed}. The statement about $\lefttwo \circ \leftone$ follows from the other two via Lemma \ref{lem:2-truncated-preserved}. 
+	\end{proof}
+\subsection{2-connected quasicategories, and detecting contractability}
+	We will now prove a dual special case. First, we recall the dual notion of truncatedness, connectivity: 
+	First, let us recall the natural notions of truncatedness in $\sset$ and $\crcom$:
+	\begin{definition}
+		A simplicial set $X$ is called \emph{$n$-connected} if for any $x \in X_0$ and $0\le k \le n$, the homotopy group $\pi_k(X,x)$ is trivial.
+	\end{definition}
+	\begin{definition}
+		A crossed complex $C$ is called \emph{$n$-connected} if for any $x \in C_0$ and $0 \le k \le n$, the homotopy group $\pi_k(X,x)$ is trivial. 
+	\end{definition}
+	This extends naturally to enriched categories:
+	\begin{definition}\label{dfn:n-connected-ssetcat}
+		Let $\C \in \ssetcat$. Then we call $\C$ \emph{n-connected} if for any $x,y \in \ob \C$, the simplicial set $\C[x,y]$ is $(n-1)$-connected.
+	\end{definition}
+	\begin{definition}\label{dfn:n-truncated-crossedcat}
+		Let $\C \in \tensorcrossedcat$ or $\cartcrossedcat$. Then we call $\C$ \emph{n-connected} if for any $x,y \in \ob \C$, the crossed complex $\C[x,y]$ is $(n-1)$-connected.
+	\end{definition}
+	In particular, an enriched category is ``$0$-connected'' when every hom-space is nonempty, and ``$1$-connected'' when the homotopy category is a contractible groupoid. 
+	\begin{lemma}\label{lem:local-strictification-preserves-connectedness}
+		$\leftone$ sends $n$-connected objects to $n$-connected objects.
+	\end{lemma}
+	\begin{proof}
+		This follows from the definition of $\leftone$ and the fact that $\st_0$ sends $(n-1)$-connected objects to $(n-1)$-connected objects. 
+	\end{proof}
+	\TODO{decide whether the rest is worth stating}. 
+	We will not use the following lemma explicitly byt the result is worth noting. 
+	\begin{lemma}\label{lem:global-strictification-preserves-connectedness}
+		$\lefttwo$ sends $n$-connected cofibrant objects to $n$-connected objects.
+	\end{lemma}
+	\begin{proof}
+		The cases $n \le 2$ follow from the commutativity of \ref{diagram:enriched-functors}. So suppose $n > 2$, and $\C \in \tensorcrossedcat$ is $n$-connected and cofibrant. In particular, its homotopy category is a contractible groupoid, so we can take any object $x \in \C$ and consider the category $\C_x$ with one object $x$ and $\C_x[x,x] = \C[x,x]$. This has a natural inclusion $\C_x \hookrightarrow \C$, which is a weak equivalence. Now since $\C_x$ is $n$-connected, we can approximate it via a cofibrant $n$-reduced object $E_n(\C_x)$, where by $n$-reduced we mean that it has a single object $x$ and the endomorphism crossed complex $E_n(\C_x)[x,x]$ is $(n-1)$-reduced. It follows that $\lefttwo E_n(\C_x)[x,x] \to \lefttwo\C$ is a weak equivalence, since the former is clearly $n$ reduced the result follows
+	\end{proof}
+	We can now prove the other special case of conservativity, for the $2$-connected objects:
+	\begin{theorem}
+		The functors $\lefttwo$, and $\lefttwo \circ \leftone$ reflect weak equivalences between cofibrant, $2$-connected objects.
+	\end{theorem}
+	\begin{proof}
+		As usual, since $\leftone$ reflects weak equivalences between all cofibrant objects, it suffices to prove for $\lefttwo$. By approximation with $2$-reduced objects as in the proof of Lemma \ref{lem:global-strictification-preserves-connectedness} and by applying the small object argument we can reduce to the case of an $I_{>2}$-cellular map $\C \to \D$, where $I_{>2}$ are the generating cofibrations for $\tensorcrossedcat$ which are $2$-reduced. 
+		\par Now, for such a $\C$ and $\D$, we equip the unique hom-object $\C[x,x]$ with the cofiltration $T_*(\C[x,x])$, where $$
+	\end{proof}
+\section{Universality}
+	In this short section we describe informally the model-independence of the functor $\st_1$, utilizing the universal description of the homotopy theory of $(\infty,n)$-categories given in \TODO{reference.}
+	First, we recall the universal property of the homotopy theory of spaces, due in the model category sense to \TODO{dugger universal homotopy theories} and in the quasicategorical sense to \TODO{HTT 5.1.5.6}.
+	\begin{theorem}
+		Let $\S$ be the quasicategory of (unpointed) spaces, and $\C$ any quasicategory. A left adjoint $F: \S \to \T$ is determined up to contractible choice by the object $F(\bullet)$, where $\bullet$ is the single-point space.
+	\end{theorem}
+	This is generally summarized by saying that the homotopy theory of spaces is the ``free cocomplete homotopy theory on a point.'' 
+	This allows a distinct lack of ambiguity when talking about left adjoint functors out of $\S$; 
+	merely selecting an object in the target category is sufficient to uniquely specify one such functor. 
+	Since our constructions in this paper have been very model specific, we would like to argue that in some sense our functors $\st_1$ is universal. 
+	In \TODO{reference}, the authors give a universal characterization of the homotopy theory of $(\infty,n)$ categories, generalizing that of $\S$ (which is the special case $n=0$). We recall just the portion of their argument we need here:
+	\begin{theorem}
+		Let $\S_n$ the quasicategory of $(\infty,n)$-categories, and $\iota: \text{Gaunt}_n \hookrightarrow \S_n$ the inclusion of the gaunt $n$-categories. For any other cocomplete quasicategory $\C$ and functor $k: \text{Gaunt}_n \to \C$, there is up to equivalence at most one functor $\S_n \to \C$ which makes the diagram
+		\begin{center}
+		\begin{tikzcd}
+			\S_n \ar[r, dashed] & \C \\
+			\text{Gaunt}_n \ar[u, "\iota "] \ar[ru, "k"]
+		\end{tikzcd}
+		\end{center}
+	commute.
+	\end{theorem}
+	The proof is a special case of Lemma 9.2 in \TODO{unicity}. 
+	\begin{theorem}
+		The derived functor of $\st_1$ preserves gaunt $1$-categories (up to natural weak equivalence). 
+	\end{theorem}
+	\begin{proof}
+		Let $\C \in \ssetcat$ be a gaunt $1$-category. Take the standard cofibrant resolution $\C^{cof} \to \C$ by the simplicial computad $\C^{cof}$ which has a generating $n$-simplex in $\C[x,y]$ for every $(n+1)$-tuple of morphisms $x \to \cdots \to y$. Since $\st_1$ preserves pushouts, 
+		\TODO{see polygraphs from rewriting to higher categories 23.3.8}.
+	\end{proof}
+	From this we get:
+	\begin{corollary}
+		Let $(\infty,1)\mathcal{Cat}$ and $(omega,1)\mathcal{Cat}$ be the quasicategories induced by localizing the corresponding model structures. Then the induced functor $\st_1 :(\infty,1)\mathcal{Cat} \to (omega,1)\mathcal{Cat}$ can be uniquely defined as the functor which sends each gaunt $n$-category to itself.
+	\end{corollary}
 	
 \section{The word-length cofiltration and its associated spectral sequence}
 	Throughout this section, fix $\C \in \tensorcrossedcat$ and fix $x,y$ be objects of $\C$.
@@ -555,8 +969,99 @@ if $n \ge 2$, $ 2 \le k \le n$; by the Eckmann-Hilton argument these groups are 
 	\begin{proof}
 		We will describe these homology groups as the homology groups of the crossed complex which is given by the hom-object of the $k$-fold tensor product, pushed forward over the groupoid composition map. In fact, maybe first we should just quotient everything out into being over groups, to make our lives easier. And then we'll have a spectral sequence over every morphism in the homotopy category, of G modules (G being the fundamental group of that morphism automorphism space). And the subfibers are the k-fold tensors which have base point equivalent to that element of the homotopy category, and these come from writing (in the homotopy category) $f$ as a $k$-fold composition, and over each one selecting a simple tensor (degree 1). Ooh!
 	\end{proof}
-	\section{Conservativity}
-	In this section we will prove that the functor $L$ reflects weak equivalences between cofibrant objects:
+	
+\subsection{\TODO{clean up} The fundamental crossed complex of a simplicial set}
+	We have referenced already the strong connection between homology and $\omega$-groupoids. In fact, the relation is extremely strong: there is a functor $R: \ch \to \omega Grpd$ which takes the chain complex $C_\bullet$ to an $\omega$-groupoid with underlying globuler set
+	\TODO{make this nicer}
+	\begin{center}
+	\begin{tikzcd}
+	C_0 & C_0 \times C_1 & C_0 \times C_1 \times C_2 & \cdots
+	\end{tikzcd}
+	\end{center}
+	And with the composition operation on
+	\begin{center}
+	\begin{tikzcd}
+	C_0 \times \cdots \times C_i & C_0 \times  \cdots \times C_i \times \cdots \times C_{i + k}
+	\end{tikzcd}
+	\end{center}
+	given by addition on the last $k$ factors. This functor $R$ should be thought of as interpreting each dimension $C_i$ as a collection of ``unbased $i$ dimensional morphisms,'' which paired with a source (an $i-1$ morphism; inductively an element of $C_0 \times \cdots \times C_{i-1}$) gives rise to an $i$ morphism.\footnote{Those familiar with the Dold-Kan construction should compare this, which has an extremely similar definition - which is no accident; this definition unwinds a chain complex into a globular set; Dold-Kan unwinds a chain complex into a simplicial one instead.} Surprisingly, it turns out that there is a partial inverse to this operation: given an arbitrary $\omega$ groupoid $G$, there is a process to ``distill'' out the ``unbased'' data in each dimension, leaving one with a sort of nonabelian chain complex called a \textit{crossed complex}.
+	\TODO{The crossed complex of an $\omega$ groupoid} \\
+	It turns out that this functor is actually an equivalence of categories: from the unbased morphism data of $afhadfkj$, the original $\omega$ groupoid can be recovered, not just up to weak equivalence but up to isomorphism. While we are conceptually interested in $\omega$ groupoids as the strict analogue of $\infty$ groupoids, it is clear that crossed complexes provide a convenient framework in which to do computation and proof. We therefore from now on shall be entirely concerned with constructing an adjunction from adklfankldsfk to asdlfmnalsdkf, while aware that our results imply identical results for $(\omega,1)$ categories as described above. 
+	\TODO{brief clarification on this. Make sure to be concrete about how the functors are defined and the various models - I think in this paper I will only really need the one sSet -> omega-groupoid. Recall the theorems from Tonks for ease of reference.} 
+	
+\subsection{Proof of theorem \TODO{theorem numbering}}
+	Having set up our principle diagram, we can now state and prove our main theorem:
+	\begin{theorem}
+		Both left adjoints in the diagram 
+		\begin{center}
+		\begin{tikzcd}[sep = large]
+			\ssetcat \ar[r, bend left = 20, "\leftone "] 
+				& \tensorcrossedcat \ar[l, bend left = 20, "\rightone "] \ar[r, bend left = 20, "\lefttwo "] 
+				& \cartcrossedcat \ar[l, bend left = 20, "\righttwo "]
+		\end{tikzcd}
+		\end{center}
+		reflect weak equivalences between cofibrant objects. In particular, their composition reflects weak equivalences between cofibrant objects.
+	\end{theorem}
+	\begin{proof}
+		We first analyze $\leftone$: let $f: \C \to \D$ be a morphism in $\ssetcat$, with $\C$ and $\D$ cofibrant. 
+		If $\leftone(f)$ is a weak equivalence, then it is an equivalence on homotopy categories, and therefore so is $f$ by lemma \TODO{reference lemma}. 
+		Hence it suffices to prove that $f$ induces weak equivalences on hom spaces. By lemma \TODO{reference lemma}, for $x,y \in \ob(\C)$ we have a commutative square 
+		\begin{center}
+		\begin{tikzcd}
+			\st_0(\C[x,y]) \ar[r] \ar[d] 
+				& \st_0(\D[f(x), f(y)]) \ar[d]
+			\\
+			\leftone(\C)[x,y] \ar[r]
+				& \leftone(\D)[f(x), f(y)]
+		\end{tikzcd}
+		\end{center}
+		in which the verticle arrows are weak equivalences. 
+		By assumption, the bottom arrow is a weak equivalence, so the top one is as well. 
+		The result then follows by theorem \TODO{reference strictification 0 conservative theorem}.
+		\\ \par 
+		We now move on to proving that $\lefttwo$ is conservative: let $f: \C \to \D$ be a morphism between cofibrant objects in $\tensorcrossedcat$. 
+		Suppose that $\lefttwo(f)$ is a weak equivalence in $\cartcrossedcat$. 
+		Then by lemma \TODO{reference lemma} $f$ is an equivalence on homotopy categories.
+		Define a new object of $\tensorcrossedcat$, $\C^{\text{Mor}(f)}$, which has the same objects as $\C$ and such that 
+		$$\C^{\text{Mor}(f)}[x,y] := \D[fx,fy]$$
+		With composition maps given by the composition maps in $\D$. Then $f$ factors as 
+		\begin{center}
+		\begin{tikzcd}
+			\C \ar[r] & \C^{\text{Mor}(f)} \ar[r, "{\sim}"] & \D
+		\end{tikzcd}
+		\end{center}
+		Where the second map is a weak equivalence, being homotopically essentially surjective (because $f$ is) and evidently a local weak equivalence. 
+		Now, let $Q$ be a cofibrant replacement functor which is identity-on-objects (\TODO{I MIGHT NEED TO ACTUALLY DO SOMETHING HERE IDK} for instance, $Q$ can be the composition of the homotopy coherent nerve and rigidication functors \TODO{reference}). We obtain a diagram
+		\begin{center}
+		\begin{tikzcd}
+			Q(\C) \ar[r] \ar[d, "\sim " {rotate=90, anchor=north}] & Q\left(\C^{\text{Mor}(f)}\right) \ar[r, "{\sim}"] \ar[d, "\sim " {rotate=90, anchor=north}] & Q(\D) \ar[d, "\sim "] \\
+			\C \ar[r] & \C^{\text{Mor}(f)} \ar[r, "{\sim}"] & \D
+		\end{tikzcd}
+		\end{center}
+		Now, we can further factor the top left map as a cofibration followed by an acylic fibration. This gives us the diagram
+		\begin{center}
+		\begin{tikzcd}
+			Q(\C) \ar[r] \ar[d, "\sim " {rotate=90, anchor=north}] & A \ar[r, "\sim "] & Q\left(\C^{\text{Mor}(f)}\right) \ar[r, "{\sim}"] \ar[d, "\sim " {rotate=90, anchor=north}] & Q(\D) \ar[d, "\sim " {rotate=90, anchor=north}] \\
+			\C \ar[rr]& & \C^{\text{Mor}(f)} \ar[r, "{\sim}"] & \D
+		\end{tikzcd}
+		\end{center}
+		Now, applying $\lefttwo$ to the above diagram, we get a diagram
+		\begin{center}
+		\begin{tikzcd}
+			\lefttwo Q(\C) \ar[r] \ar[d, "\sim " {rotate=90, anchor=north}] & \lefttwo  A \ar[r, "\sim "] & \lefttwo Q\left(\C^{\text{Mor}(f)}\right) \ar[r, "{\sim}"] \ar[d] & \lefttwo Q(\D) \ar[d, "\sim " {rotate=90, anchor=north}] \\
+			\lefttwo  \C \ar[rr]& & \lefttwo  \C^{\text{Mor}(f)} \ar[r] & \lefttwo\D
+		\end{tikzcd}
+		\end{center}
+		Where the composition of the bottom two arrows is a weak equivalence. It then follows that top left arrow is a weak equivalence. \
+		Note that if the map $Q(\C) \to A$ is a weak equivalence, then so is $\C \to \D$. 
+		We have therefore reduced the problem to showing that $\lefttwo$ reflects weak equivalences on identity-on-objects relative $I$-cellular maps between $I$-cellular objects of $\tensorcrossedcat$, with $I$ being the generating cofibrations.
+		So, let $f: \C \to \D$ be such a map, and suppose that $\lefttwo(f)$ is a weak equivalence. 
+		Then by \TODO{reference spectral sequence} for any objects $x,y \in \ob(\C)$ we have spectral sequences converging to ------, and a natural transformation $\phi$ of spectral sequences. 
+		By \TODO{reference}, since $\lefttwo(f)$ is a weak equivalence, this natural tranformation is an isomorphism of $E^2$-pages, and hence of $E^\infty$-pages. 
+		Thus $f$ induces isomorphisms on $\pi_n$ for $n \ge 2$. 
+		Since we have already shown it induces an equivalence of homotopy categories and of local fundamental groupoids, the result then follows.
+	\end{proof}
+\section{OLD: Conservativity}
 	\begin{theorem}
 		Let $\C$ and $\D$ be simplicial computads and $f: \C \to \D$ a functor of simplicially enriched categories. Then if $L(f)$ is a weak equivalence, so is $f$. 
 	\end{theorem}
@@ -609,12 +1114,19 @@ I think that we automatically get Quillen adjunction if this is an adjunction at
 	\TODO{the basic argument is that once we have conservativity, we just need to show that the map into the canonical cosimplicial resolution is an equivalence. This maybe isn't too hard: need to show that it is an equivance on homotopy categories, and on every mapping space. The first part should follow because St doesn't change the homotopy category, and the second should follow using that mapping spaces are homotopy limits, and that St0 is comonadic}
 
 \section{Looking upwards: difficulties in defining the strictification of $(\infty,n)$-categories, comparison with Loubaton-Henry}
-	\subsection{Monoidalness of the strictification adjunction for quasicategories}
-		An essential tool in our approach to defining $\text{St}_1$ is that the adjunction $\text{St}_0 \dashv U_0$ is (lax) monoidal, 
-		\TODO{try to figure out whether the strictification of quasicategories is monoidal, which would give the $(\infty,2)$-categorical strictification immediately}
-	\subsection{Looking upwards}
-		Lay out whatever the next logical step is and then explain why it is difficult/not possible with the current technology.
-	\subsection{Comparison with Loubaton-Henry}
+
+\subsection{Proving that this adjunction is ``universal'' (takes the gaunt n-categories to themselves)}
+	The thing to do here is to take the canonical resolution and try to claim that it gives a cofibrant resolution in $(\omega,1)$-cat, i.e. prove that a specific weak equivalence (whose codomain is \textit{not} cofibrant) is preserved. 
+\subsection{Monoidalness of the strictification adjunction for quasicategories}
+	An essential tool in our approach to defining $\text{St}_1$ is that the adjunction $\text{St}_0 \dashv U_0$ is (lax) monoidal, 
+	\TODO{try to figure out whether the strictification of quasicategories is monoidal, which would give the $(\infty,2)$-categorical strictification immediately}
+\subsection{Looking upwards}
+	Lay out whatever the next logical step is and then explain why it is difficult/not possible with the current technology.	
+\subsubsection{monoidal structures on higher categories}
+	There is a monoidal product on $\omegancat{n}$ called the \textit{gray tensor product}.
+	Originally defined for $2$-categories in [\TODO{reference}], it was extended to $\omega$ and $(\omega,n)$-categories in []. 
+
+\subsection{Comparison with Loubaton-Henry}
 		Henry says an adjustment to the marking might give you a model structure on marked $\omega$-categories modelling $(\omega,n)$-categories. Attempt to do this, or at least to define a functor from his model category to ours, and use this to prove his conjecture in the $n = 0,1$ cases.
 		\TODO{Determine whether the functor that inverts everything about dimension $n$ will give a left Quillen functor from Loubaton/Henry to (omega,n)-categories, adjoint to some natural inclusion (marking not obvious). Other option: construct another model structure on omega-categories in which the fibrant objects are the (omega,n)-categories.}
 		\TODO{demonstrate that this gives a factorization of our strictification functor through theirs. Conclude that their strictification functor is conservative.}
@@ -880,8 +1392,6 @@ There is a natural map from $C \otimes D \to C \times D$ which is described on g
 	In degree 2, the presentation given by another thing gives a similar computation.
 	In degree 3 and above, this becomes trivial.
 \end{proof}
-asdf
-\\\\
 Our goal is to define a functor $\tensorcrossedcat \to \cartcrossedcat$ by quotienting out by various relations imposed by the the composition operation and $\pi$, as described in the previous sections with $\omega$-groupoids. So, let $\C \in \tensorcrossedcat$. 
 We define $\tencart{\C}$ to have the same objects in $\C$, and have hom sets as follows: for $a,c \in \ob(\C)$, we let 
 $$
@@ -963,86 +1473,5 @@ And we can show that this is a Quillen adjunction rather readily:
 \end{proof}
 
 \newpage
-\section{Scraps (to delete later)}
-	
-\section{Cofibrant and acyclically cofibrant $\omega$-Groupoids}
-	In this section we will prove that the cofibrant $\omega$-Groupoids are precisely the $(\omega,0)$-computads. In fact, we will moreover prove that if $G$ is a cofibrant $\omega$-groupoid, then the cofibrations with source $G$ are precisely the $G$-relative $(\omega,0)$ computads. Further, we will prove that if $G$ is a cofibrant $\omega$-groupoid and $f: G \to H$ is an acyclic cofibration, then $f$ is $J_0$-cellular.
-	\indent First, recall some definitions: an $(\omega,0)$-computad is precisely an $I$-cellular object.
-	\begin{lemma}
-		Let $C \in \crcom$. Then a map $C \to D$ is $J_0$-cellular precisely if it is $I_0$-cellular and the generators $\mathcal{G}$ of its $I_0$-cellular structure can partitions into two sets $\mathcal{G}_i$ (the ``interior'' generators) and $\mathcal{G}_b$ (the ``boundary'' generators), together with a bijection $P: \mathcal{G}_i \to \mathcal{G}_b$ which reduces degree by one such that:
-		\begin{itemize}
-			\item if $g \in \mathcal{G}_i$ has dimension $1$, then $t(g*) = P(g)*$.
-			\item if $g \in \mathcal{G}_i$ has dimension $\ge 2$, then $d(g*) = P(g)* + \cdots $
-		\end{itemize}
-		And furthermore such that $\mathcal{G}_i$ can be well-ordered such that $d(g*)$ can be written as a sum $P(g)* + K$ where $K$ is in the span of the terms $C \cup \{P(h) | h < g\}$. This ordering condition is nontrivial; the hemispheric decomposition of $S^2$ satisfies the other conditions.
-	\end{lemma}
-	\begin{proof}
-		\TODO{proof of the above. maybe also phrasing the above better}.
-	\end{proof}
-	Thus, the second statement we need to prove will be greatly helped by the first.
-	\begin{lemma}
-		Let $h$ be an idempotent endormophism of a $J_0$-cellular map $C \to D$, $C$ cofibrant. Then the cells adjoined to create $D$ can be chosen such that $h$ does not send cells to later generations. \TODO{state clearer}
-	\end{lemma}
-	\begin{proof}
-		\TODO{write up clearly.} only need to argue for the interior generators (fairly easy to prove this implies it for the boundary ones). Then, it follows because you can just adjoin the kernel, then the new generators, then the rest (the sets $S^0$, $S^1$, and $S^2$). The key insight is observing that you just need to change what the boudnaries added are; e.g. if the original paired generators are $(A,a), (B,b),...$ then the new ones may be $(A, a + b + c), ...$ depending on what the boundary of $a$ is. This should work out. 
-	\end{proof}
-	\begin{proof}[Proof of the acyclic cofibration statement]
-		Return to the construction we gave: it is enough to construct the pairing and order (with respect to some system of generators). By the previous lemma we have that $h$ respects generations, so it then follows that a generator is included in the new system iff its pair is, as desired. yay! 
-	\end{proof}
-	\begin{theorem}
-		Let $C$ be a cofibrant crossed complex. Then the category of relatively free crossed complexes under $C$ is Cauchy complete: that is, if $C \to D$ is a relatively free morphism of crossed complexes, and $h$ an idempotent endomorphism of $D$ fixing $C$, then there is a relatively free crossed complex under $C$, $C \to \tilde{D}$, and a diagram 
-		\begin{center}
-		\begin{tikzcd}
-			& C \ar[ld] \ar[d] \ar[rd] \\
-			\tilde{D} \ar[r, "\iota"] & D \ar[r, "r"] & \tilde{D}
-		\end{tikzcd}
-		\end{center}
-		such that $\iota \circ r = h$ and $r \circ \iota = \id_{\tilde{D}}$.
-	\end{theorem}
-	
-	
-	\begin{proof}
-		Let $\iota: C \to D$ be a relatively free crossed complex, with $C$ a free crossed complex. Let $h: D \to D$ be an idempotent morphism which fixes $C$; in other words an idempotent morphism such that the diagram
-		\begin{center}
-		\begin{tikzcd}
-			& C \ar[ld, "\iota"] \ar[rd, "\iota"] \\
-			D \ar[rr, "h"] && D
-		\end{tikzcd}
-		\end{center}
-		commutes. We will build the relatively free crossed complex $\tilde{\iota}: C \to \tilde{D}$ in steps:\\
-		\textbf{Step 0:} the objects of $\tilde{D}$ are precisely the objects of $D$ which are fixed under $h$. Note that this necessarily includes all of the objects in the image of $\iota$. \\\\
-		\textbf{Step 1:} Let $\mathcal{I}$ be the set of connected components of $D$. For each $I \in \mathcal{I}$, pick a basepoint $I_0$. To give a free generating set for the groupoid $C_{\le 1}$ is the same as to give a spanning tree $T_I$ for each $I$, along with generating sets for the free groups $C[I_0,I_0]$ for each $I \in \mathcal{I}$. Similarly, to give a generating set for $h(C_{\le 1}$ is the same as to give a spa
-	\end{proof}
-	
-	
-	
-	
-	Having proved the groupoidal case, we move on to our case of interest.
-\subsection{cofibrant and acyclically cofibrant $(\omega,1)$-categories}
-	Proving that cofibrant $(\omega,1)$ categories are free is not particularly difficult, and again essentially follows the proof left by Metayer:
-	\TODO{figure out this thing that i am  saying is not difficult}
-	However, the acyclic case is substantially more complex than the case of acyclic cofibrations between $\omega$-groupoids. The primary reason for this is that one of the generating acylic cofibrations is substantially more complex: acyclically adding an object to an $(\omega,1)$ category is complex because one has to add in not just the object and a morphism, but also the homotopy inverse of that morphism, and the homotopy demonstrating that these morphisms are homotopy inverse. Fortunately, we will only need the special case of acyclic cofibrations which are identity-on-objects, and hence the only generating acyclic cofibrations we need to worry about are the suspensions of the generating acyclic cofibrations for crossed complexes. 
-	\begin{theorem}
-		Let $f: C \to D$ be an identity-on-objects acyclic cofibration between cofibrant $(\omega,1)$ categories. Then $f$ is $J$-cellular, where $J$ is the suspensions of generating acyclic cofibrations on crossed complexes.
-	\end{theorem}
-	\begin{proof}
-		Let $\iota: C \to D$ be a relatively free crossed complex-cat, with $C$ free. Let $h: D \to D$ be an idempotent morphism which fixes $C$; in other words an idempotent morphism such that the diagram
-		\begin{center}
-		\begin{tikzcd}
-			& C \ar[ld, "\iota"] \ar[rd, "\iota"] \\
-			D \ar[rr, "h"] && D
-		\end{tikzcd}
-		\end{center}
-		commutes. We will build the relatively free crossed CrCom-Cat $\tilde{\iota}: C \to \tilde{D}$ in steps:\\
-		\textbf{Step 1:} By the paper -------, we have that the $1$-category of $h(D)$ is freely generated by the images of things which go to themselves plus stuff that goes to $0$.  \\\\
-		\textbf{Step 2:} For this step it will be important to remember a few facts: 
-		\begin{itemize}
-			\item To give a free generating set for a free groupoid $G$ with object set $G_0$, it suffices to give a spanning tree on the underling graph of $G$, along with a single object $x$ for every connected component of $G$ and a free generating set for the group $G[x,x]$
-			\item Every surjection of free groups can be written as a projection onto a part of the basis. In particular, for $h: F \to F$ an idempotent morphism, we have that there is a basis of $\mathcal{B}$ of $F$ such that $h$ is either the identity or $0$ on $\mathcal{B}$. 
-			Moreover, if $\mathcal{U} \cup \mathcal{V}$ is any basis of $F$, and $h$ fixes $\mathcal{U}$, then $\mathcal{B}$ can be chosen to be a superset of $\mathcal{U}$.
-			\item Note that the only things which can be sent to an identity are endomorphisms (because we have a fixed object set). Maybe we could simply eliminate all of these from $D$ to obtain a sub-free-object without those? maybe...  
-		\end{itemize}
-		
-		
-	\end{proof}
+
 \end{document}

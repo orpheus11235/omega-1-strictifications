@@ -1,0 +1,306 @@
+\documentclass[12pt]{article}
+\usepackage[hyphens]{url} % 'hyphens' option allows line breaks after "-" characters
+\usepackage[colorlinks,allcolors=blue]{hyperref}
+\usepackage{cite}
+\usepackage{dutchcal}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{ dsfont }
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage[all,cmtip]{xy}
+\usepackage{fullpage}
+\usepackage{mathrsfs}
+\usepackage{graphicx}
+\usepackage{tensor}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usetikzlibrary{matrix}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+
+\newenvironment{example}[1][Example]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{remark}[1][Remark]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{moral}[1][Moral]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+
+\newcommand{\TODO}[1]{\textcolor{red}{TODO: {#1}}}
+\newcommand{\feedback}[1]{\textcolor{blue}{FEEDBACK REQUEST: {#1}}}
+
+\newcommand{\T}{\mathcal{T}}
+\renewcommand{\S}{\mathcal{S}}
+
+\newcommand{\eps}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+
+
+% names of categories
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\D}{\mathcal{D}}
+
+\newcommand{\sset}{\text{sSet}}
+\newcommand{\stinfty}{\omega\text{Gpd}}
+\newcommand{\algkan}{\text{AlgKan}}
+\newcommand{\stcom}{\text{sTCom}}
+\newcommand{\crcom}{\text{CrCom}}
+\newcommand{\ch}{\text{Ch}_\mathbb{Z}^+}
+\newcommand{\sabgroup}{\text{sAbGrp}}
+\newcommand{\qsset}{\mathcal{sSet}}
+\newcommand{\qstcom}{\mathcal{sTCom}}
+%newer categories (this paper)
+\newcommand{\omegacat}{\omega\mathcal{Cat}}
+\newcommand{\omegancat}[1]{(\omega,#1)\mathcal{Cat}}
+\newcommand{\graycat}[1]{((\omega, #1)\mathcal{Cat})^\otimes{-}\mathcal{Cat}}
+\newcommand{\cartesiancat}[1]{((\omega, #1)\mathcal{Cat})^\times{-}\mathcal{Cat}}
+\newcommand{\graycatzero}{(\stinfty)^\otimes-\mathcal{Cat}}
+\newcommand{\cartesiancatzero}{(\stinfty)^\times-\mathcal{Cat}}
+
+\newcommand{\cartcrossedcat}{\crcom^\times-\mathcal{Cat}}
+\newcommand{\tensorcrossedcat}{\crcom^\otimes-\mathcal{Cat}}
+\newcommand{\tencart}[1]{\underline{#1}}
+
+\newcommand{\joyal}{\text{sSet}_{\mathcal{J}}}
+\newcommand{\bergner}{(\text{sSet})-\text{Cat}_{\mathcal{B}}}
+\newcommand{\ssetcat}{\text{sSet}-\mathcal{Cat}}
+
+
+
+
+%misc
+\newcommand{\id}{\text{id}}
+\newcommand{\colim}{\emph{colim}}
+\newcommand{\holim}{\text{holim}}
+\newcommand{\dec}{\text{dec}}
+\newcommand{\ob}{\text{ob}}
+\newcommand{\del}{\partial}
+\newcommand{\W}{\mathcal{W}}
+\newcommand{\Ho}{\text{Ho}}
+\newcommand{\sus}{\Sigma}
+
+% names of functors. 
+\newcommand{\stalg}{\text{St}_{\text{Alg}}}
+\newcommand{\ualg}{\text{U}_{\text{Alg}}}
+\newcommand{\st}{\text{St}}
+\newcommand{\ust}{\text{U}_{\st}}
+\newcommand{\Tot}{\text{Tot}}
+\newcommand{\abtcom}{\text{Ab}_{\text{sT}}}
+\newcommand{\utcom}{\text{U}_{\text{sT}}}
+\newcommand{\abcomplex}{\text{Ab}_{\text{Cr}}}
+\newcommand{\ucomplex}{\text{U}_{\text{Cr}}}
+\newcommand{\doldnormalizer}{\text{N}_\mathbb{Z}}
+\newcommand{\doldsset}{\Gamma_\mathbb{Z}}
+\newcommand{\nonabdoldnormalizer}{\text{N}_{\crcom}}
+\newcommand{\nonabdoldsset}{\Gamma_{\crcom}}
+\newcommand{\lf}{\mathcal{L}}
+\newcommand{\rf}{\mathcal{R}}
+\newcommand{\tz}{\tilde{\mathbb{Z}}}
+\newcommand{\tabcomplex}{\tilde{\text{Ab}}_{\text{Cr}}}
+%new this paper
+\newcommand{\strictification}[1]{\text{St}_{#1}}
+\newcommand{\ninclusion}[1]{U_{#1}}
+\newcommand{\omegannerve}[1]{N_{(\omega,#1)}}
+\newcommand{\omeganrigidification}[1]{C_{(\omega,#1)}}
+\newcommand{\forgetcartesian}{R}
+\newcommand{\forcecartesian}{L}
+\newcommand{\leftone}{L_1}
+\newcommand{\rightone}{R_1}
+\newcommand{\lefttwo}{L_2}
+\newcommand{\righttwo}{R_2}
+\newcommand{\freeatom}[1]{\mathcal{F}\langle \text{at}{#1}\rangle}
+\newcommand{\takeapart}{\lambda}
+\newcommand{\puttogether}{\gamma}
+
+
+\newcommand{\freecoalg}{\mathcal{F}_{\st}}
+\renewcommand{\dim}[1]{\operatorname{dim}\mleft({#1}\mright)}
+\renewcommand{\det}[1]{\operatorname{det}\mleft({#1}\mright)}
+\renewcommand{\gcd}[1]{\operatorname{gcd}\mleft\{{#1}\mright\}}
+\renewcommand{\min}[1]{\operatorname{min}\mleft\{{#1}\mright\}}
+\renewcommand{\max}[1]{\operatorname{max}\mleft\{{#1}\mright\}}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Aut}{Aut}
+\newcommand{\on}{\operatorname}
+
+\setcounter{tocdepth}{1}
+%-------------------------------------------------------------------------------
+\graphicspath{{images/}}
+%-------------------------------------------------------------------------------
+\begin{document}
+%-------------------------------------------------------------------------------
+\author{Kimball Strong}
+\date{}
+
+%-------------------------------------------------------------------------------
+\title{\vspace{-1in} A Whitehead Theorem for $(\infty,1)$-categories\\ \vspace{.1in}}
+
+\maketitle
+%-------------------------------------------------------------------------------
+\section{Warmup: the groupoid case}
+	\begin{theorem}
+		Let $f: G \to H$ be a crossed complex morphism of relatively free type, with $G$ a crossed complex of free type. 
+		If $f$ is a weak equivalence, then it is $J$-cellular, where $J$ is the generating acyclic cofibrations.
+	\end{theorem}
+	\begin{proof}
+		We will assume $G$ is connected, since in the general case we can work one connected component at a time; we pick some basepoint $g$.
+		We will inductively show that we can find a (relative) generating set for $H$ relative to $G$ which exhibits $f$ as a $J$-cellular map.
+		For $n \in \mathbb{N}$, denote by $K_n$ the set of $n$ dimensional generators adjoined to $G$ to make $H$. 
+		Note that $K_1$ is a connected graph on $K_0$ and hence has a spanning tree; call it $\mathcal{T}$, and orient each edge $e \in \mathcal{t}$ such that $s(e)$ is closer to $g$ (in $\mathcal{T}$) than $t(e)$. 
+		We note that a free generating set for $H_1$ is simply given by a spanning tree as well as a free generating set for $pi_1(H,g)$; therefore we can change basis so that $K_1$ consists of elements of $\mathcal{T}$ and loops at $g$.
+		Then we can define our acyclicity function in dimension $0$ via
+		$$A_0(k) = \text{The unique } \ell \in \mathcal{T} \text{ such that } t(\ell) = k$$ 
+		We now have that $K_1^\delta$ consists of loops based at $g$.
+		\\\\
+		We now proceed to define $A_1$; by our previous analysis, it will take loops on the object $g$ to elements of $H_2(g)$. 
+		By acyclicity of $f$, for every $\ell \in K_1^\delta$, there is some $x \in H_2(g)$ with $\delta(x) = \ell - \alpha$, for some $\alpha \in G_1(g,g)$. Note that freely adjoining $\ell$ to $G_1$ is equivalent to freely adjoining $\ell - \alpha$, so by changing basis we can assume that every $\ell \in K_1^\delta$ is trivial in $\Pi_1(H)$.
+		In other words, we can assume that for every $\ell \in K_1^\delta$ there is some $x \in H_2(g)$ such that $\delta(x) = \ell$; in other words we can assume surjectivity of the map $\mathcal{F}\langle K_2 \rangle \to \mathcal{F}\langle K_1^\delta \rangle$.
+	\end{proof}
+\section{Post-Warmup: The higher case}
+	The goal of this section is to prove the following theorem:
+	\begin{theorem}
+		Let $\C$ and $\D$ be cofibrant objects in $\tensorcrossedcat$, and $f: \C \to \D$ an identity-on-objects morphism in $\tensorcrossedcat$. 
+		Then if $\st(f)$ is a weak equivalence, so is $f$.
+	\end{theorem}
+	\begin{proof}
+		By standard model category techniques, we reduce to the case where $f$ is a cellular map, with $\C$ a cellular object. 
+		Denote by $K_i$ the set of $i$-cells adjoined to $C$ to create $D$.
+		We note that $\st$ preserves the fundamental groupoid $\Pi_1$ at every hom-object. 
+		Hence in particular, it preserves the homotopy category. 
+		Hence, for every cell $a \in K_0$, adjoined in the hom object $\C[x,y]$, it is connected (in $D$) to some connected component of $\C[x,y]$. 
+		Pick some ordering on $K_1$, and let $K_1^\nabla$ be the subset of $K_1$ of all those cells such that when they are adjoined, it changes the connected components of the graph whose vertices are connected components of $\C$ and connected components containing some $a \in K_0$.
+		Then for each $\ell \in K_1^\nabla$, there are two possibilities:
+		\begin{enumerate}
+			\item adjoining $\ell$ connects $a$ to some connected component of $\C[x,y]$
+			\item adjoining $\ell$ connects $a$ to some other atomic element $b$ 
+		\end{enumerate}
+		By ordering $K_0$, we can therefore assign each $a \in K_0$ some $\ell_a \in K_1^\nabla$ such that adjoining $\ell_a$ connects the connected component of $a$ to some connected component of $\C[x,y]$ or to the connected component of $b$, with $b < a$ in the ordering.
+		In each hom object $\D[x,y]$, pick a rooted spanning tree for each connected component of the underlying groupoid $\D[x,y]_{\le 1}$. 
+		Then for every $a \in K_0$ there is a unique rooted path $p_a: a \to w$ for $w \in \C_0$ that is formed by this spanning tree. 
+		We claim that we can replace $\ell_a$ by $p$ and in the cellular decomposition for $\D$ under $\C$. 
+		Let $\tilde{\C}$ be the relative cellular object of $\tensorcrossedcat$ with cells given by $K_0$ and $K_1 \setminus \{\ell_a\}$; then it suffices to find an isomorphism between the two pushouts
+		\begin{center}
+		\begin{tikzcd}
+			\sus[\partial I] \ar[d] \ar[r, "\nabla \ell_a"] & \tilde{\C} \ar[d] \\
+			\sus[I] \ar[r] & \tilde{\C}[\ell_a]
+		\end{tikzcd}
+		\end{center}
+		and 
+		\begin{center}
+		\begin{tikzcd}
+			\sus[\partial I] \ar[d] \ar[r, "\nabla p_a"] & \tilde{\C} \ar[d] \\
+			\sus[I] \ar[r] & \tilde{\C}[p_a]
+		\end{tikzcd}
+		\end{center}
+		We have an obvious map $\tilde{\C}[p_a] \to \tilde{\C}[\ell_a]$ given by sending the freely adjoined $p_a$ to $p_a$ in $\C$. 
+		We define its inverse as follows: since the connected components of $\tilde{\C}[\ell_a]$ are the same as those of $\C$, 
+		Suppose that $\ell: w_1 \to w_2$, with $w_1$ and $w_2$ elements of $\D[x,y]_0$: in other words, words on the generators of the underlying category of $\D$. 
+		Then, for $\ell$ to connect $a$ to some connected component of $\C[x,y]$, we must have that 
+		\\\\
+		\TODO{finish the above argument}
+		\\\\
+		\TODO{the 1-2 dimensional case}
+		\\\\
+		\TODO{the 2-3 dimensional case; should be easy but we'll be a tad careful}
+		\\\\
+		Now, the rest of the dimensions shall be handled by a uniform induction argument: we suppose that we are adjoining cells of dimension $n$ and higher for $n \ge 3$, and that the induced map $\C \to \D$ is a weak equivalence. We furthermore suppose inductively that each of the adjoined $n$-cells $a \in K_n$ has null boundary.
+		Since $\C \to \D$ is a weak equivalence, it follows that each for $a \in K_n$ there is some $n+1$-cell with boundary $a + k$, for $k$ an $n$-cell of $\C$. We can replace $a$ with $a+k$ to strengthen our assumption to saying that $a$ is nullhomologous; so there is some $\alpha$ with $d(\alpha) = a$. 
+		
+	\end{proof}
+\section{Scraps (to delete later)}
+	
+\section{Cofibrant and acyclically cofibrant $\omega$-Groupoids}
+	In this section we will prove that the cofibrant $\omega$-Groupoids are precisely the $(\omega,0)$-computads. In fact, we will moreover prove that if $G$ is a cofibrant $\omega$-groupoid, then the cofibrations with source $G$ are precisely the $G$-relative $(\omega,0)$ computads. Further, we will prove that if $G$ is a cofibrant $\omega$-groupoid and $f: G \to H$ is an acyclic cofibration, then $f$ is $J_0$-cellular.
+	\indent First, recall some definitions: an $(\omega,0)$-computad is precisely an $I$-cellular object.
+	\begin{lemma}
+		Let $C \in \crcom$. Then a map $C \to D$ is $J_0$-cellular precisely if it is $I_0$-cellular and the generators $\mathcal{G}$ of its $I_0$-cellular structure can partitions into two sets $\mathcal{G}_i$ (the ``interior'' generators) and $\mathcal{G}_b$ (the ``boundary'' generators), together with a bijection $P: \mathcal{G}_i \to \mathcal{G}_b$ which reduces degree by one such that:
+		\begin{itemize}
+			\item if $g \in \mathcal{G}_i$ has dimension $1$, then $t(g*) = P(g)*$.
+			\item if $g \in \mathcal{G}_i$ has dimension $\ge 2$, then $d(g*) = P(g)* + \cdots $
+		\end{itemize}
+		And furthermore such that $\mathcal{G}_i$ can be well-ordered such that $d(g*)$ can be written as a sum $P(g)* + K$ where $K$ is in the span of the terms $C \cup \{P(h) | h < g\}$. This ordering condition is nontrivial; the hemispheric decomposition of $S^2$ satisfies the other conditions.
+	\end{lemma}
+	\begin{proof}
+		\TODO{proof of the above. maybe also phrasing the above better}.
+	\end{proof}
+	Thus, the second statement we need to prove will be greatly helped by the first.
+	\begin{lemma}
+		Let $h$ be an idempotent endormophism of a $J_0$-cellular map $C \to D$, $C$ cofibrant. Then the cells adjoined to create $D$ can be chosen such that $h$ does not send cells to later generations. \TODO{state clearer}
+	\end{lemma}
+	\begin{proof}
+		\TODO{write up clearly.} only need to argue for the interior generators (fairly easy to prove this implies it for the boundary ones). Then, it follows because you can just adjoin the kernel, then the new generators, then the rest (the sets $S^0$, $S^1$, and $S^2$). The key insight is observing that you just need to change what the boudnaries added are; e.g. if the original paired generators are $(A,a), (B,b),...$ then the new ones may be $(A, a + b + c), ...$ depending on what the boundary of $a$ is. This should work out. 
+	\end{proof}
+	\begin{proof}[Proof of the acyclic cofibration statement]
+		Return to the construction we gave: it is enough to construct the pairing and order (with respect to some system of generators). By the previous lemma we have that $h$ respects generations, so it then follows that a generator is included in the new system iff its pair is, as desired. yay! 
+	\end{proof}
+	\begin{theorem}
+		Let $C$ be a cofibrant crossed complex. Then the category of relatively free crossed complexes under $C$ is Cauchy complete: that is, if $C \to D$ is a relatively free morphism of crossed complexes, and $h$ an idempotent endomorphism of $D$ fixing $C$, then there is a relatively free crossed complex under $C$, $C \to \tilde{D}$, and a diagram 
+		\begin{center}
+		\begin{tikzcd}
+			& C \ar[ld] \ar[d] \ar[rd] \\
+			\tilde{D} \ar[r, "\iota"] & D \ar[r, "r"] & \tilde{D}
+		\end{tikzcd}
+		\end{center}
+		such that $\iota \circ r = h$ and $r \circ \iota = \id_{\tilde{D}}$.
+	\end{theorem}
+	
+	
+	\begin{proof}
+		Let $\iota: C \to D$ be a relatively free crossed complex, with $C$ a free crossed complex. Let $h: D \to D$ be an idempotent morphism which fixes $C$; in other words an idempotent morphism such that the diagram
+		\begin{center}
+		\begin{tikzcd}
+			& C \ar[ld, "\iota"] \ar[rd, "\iota"] \\
+			D \ar[rr, "h"] && D
+		\end{tikzcd}
+		\end{center}
+		commutes. We will build the relatively free crossed complex $\tilde{\iota}: C \to \tilde{D}$ in steps:\\
+		\textbf{Step 0:} the objects of $\tilde{D}$ are precisely the objects of $D$ which are fixed under $h$. Note that this necessarily includes all of the objects in the image of $\iota$. \\\\
+		\textbf{Step 1:} Let $\mathcal{I}$ be the set of connected components of $D$. For each $I \in \mathcal{I}$, pick a basepoint $I_0$. To give a free generating set for the groupoid $C_{\le 1}$ is the same as to give a spanning tree $T_I$ for each $I$, along with generating sets for the free groups $C[I_0,I_0]$ for each $I \in \mathcal{I}$. Similarly, to give a generating set for $h(C_{\le 1}$ is the same as to give a spa
+	\end{proof}
+	
+	
+	
+	
+	Having proved the groupoidal case, we move on to our case of interest.
+\subsection{cofibrant and acyclically cofibrant $(\omega,1)$-categories}
+	Proving that cofibrant $(\omega,1)$ categories are free is not particularly difficult, and again essentially follows the proof left by Metayer:
+	\TODO{figure out this thing that i am  saying is not difficult}
+	However, the acyclic case is substantially more complex than the case of acyclic cofibrations between $\omega$-groupoids. The primary reason for this is that one of the generating acylic cofibrations is substantially more complex: acyclically adding an object to an $(\omega,1)$ category is complex because one has to add in not just the object and a morphism, but also the homotopy inverse of that morphism, and the homotopy demonstrating that these morphisms are homotopy inverse. Fortunately, we will only need the special case of acyclic cofibrations which are identity-on-objects, and hence the only generating acyclic cofibrations we need to worry about are the suspensions of the generating acyclic cofibrations for crossed complexes. 
+	\begin{theorem}
+		Let $f: C \to D$ be an identity-on-objects acyclic cofibration between cofibrant $(\omega,1)$ categories. Then $f$ is $J$-cellular, where $J$ is the suspensions of generating acyclic cofibrations on crossed complexes.
+	\end{theorem}
+	\begin{proof}
+		Let $\iota: C \to D$ be a relatively free crossed complex-cat, with $C$ free. Let $h: D \to D$ be an idempotent morphism which fixes $C$; in other words an idempotent morphism such that the diagram
+		\begin{center}
+		\begin{tikzcd}
+			& C \ar[ld, "\iota"] \ar[rd, "\iota"] \\
+			D \ar[rr, "h"] && D
+		\end{tikzcd}
+		\end{center}
+		commutes. We will build the relatively free crossed CrCom-Cat $\tilde{\iota}: C \to \tilde{D}$ in steps:\\
+		\textbf{Step 1:} By the paper -------, we have that the $1$-category of $h(D)$ is freely generated by the images of things which go to themselves plus stuff that goes to $0$.  \\\\
+		\textbf{Step 2:} For this step it will be important to remember a few facts: 
+		\begin{itemize}
+			\item To give a free generating set for a free groupoid $G$ with object set $G_0$, it suffices to give a spanning tree on the underling graph of $G$, along with a single object $x$ for every connected component of $G$ and a free generating set for the group $G[x,x]$
+			\item Every surjection of free groups can be written as a projection onto a part of the basis. In particular, for $h: F \to F$ an idempotent morphism, we have that there is a basis of $\mathcal{B}$ of $F$ such that $h$ is either the identity or $0$ on $\mathcal{B}$. 
+			Moreover, if $\mathcal{U} \cup \mathcal{V}$ is any basis of $F$, and $h$ fixes $\mathcal{U}$, then $\mathcal{B}$ can be chosen to be a superset of $\mathcal{U}$.
+			\item Note that the only things which can be sent to an identity are endomorphisms (because we have a fixed object set). Maybe we could simply eliminate all of these from $D$ to obtain a sub-free-object without those? maybe...  
+		\end{itemize}
+		
+		
+	\end{proof}
+\end{document}
