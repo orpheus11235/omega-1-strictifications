@@ -1,0 +1,27 @@
+TODO:
+
+get a reference for this homotopy pushout stuff.
+
+TODOS FROM INNA:
+
+section 2 should be a discussion of the non-model category case, including the very last section and the example Inna loves.
+
+NON-MODEL CASE: see Claude chat. some confusion on what is true. in particular, is the counterexample Claude gives a counterexample to my theorem in Muro's framework? 
+
+Then, there should be another section detailing the berger-moerdijk and the muro approaches to the Dwyer-Kan model structure. I need to HAVE THE CONDITIONS of each listed so that it is not necessary to see another paper. I think it would probably be really big if I could get rid of the cofibrancy-of-unit assumption. It would also be big if I could remove the cylinder axiom, but that seems hard. 
+
+It would be good to discuss some easy to state situations/examples where this holds. Also, it would be really good to find an example where VCat does not have the naive fibration property. 
+
+P.S., the statement of theorem B has "weak naive fibration property" which is a defunct term.
+
+
+
+JOURNAL THOUGHTS:
+
+no good editors on london mathematical society journals.
+compositio mathematicae is possible but intimidating (uninterested?)
+higher structures seems good! 
+Forum of Math Pi/Sigma has Moerdijk on it
+
+Inna thinks maybe AIM???? if strong enough...
+

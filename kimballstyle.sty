@@ -1,0 +1,223 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{kimballstyle}[my macros]
+
+\RequirePackage{amsthm}
+\RequirePackage{xcolor}
+
+%%% ==============================================================================================
+%%% MACROS BELOW
+%%% ==============================================================================================
+
+%%% Random shit (should edit out)
+\newcommand{\lf}{\mathcal{L}}
+\newcommand{\rf}{\mathcal{R}}
+\newcommand{\n}{[n]}
+
+\makeatletter
+% \def\@endtheorem{\endtrivlist\@endpefalse }% OLD
+\def\@endtheorem{\endtrivlist}% NEW
+\makeatother
+%%% Theorem environments
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{falselemma}[theorem]{\textcolor{red}{False Lemma}}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem*{nonumtheorem}{Theorem}
+% Alphabetical theorems for clarity
+\newtheorem{alphatheorem}{Theorem}
+\renewcommand{\thealphatheorem}{\Alph{alphatheorem}}
+% Multi part theorems for fanciness
+\newtheorem*{theoremB1}{Theorem B1}
+\newtheorem*{theoremB2}{Theorem B2}
+\theoremstyle{definition}
+\newtheorem*{nonumdefinition}{Definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem*{pseudo-definition}{Pseudo-Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+
+%%% Common mathrm commands
+\newcommand{\ho}{\mathrm{ho}}
+\newcommand{\Ho}{\mathrm{Ho}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\Id}{\mathrm{Id}}
+\newcommand{\holim}{\mathrm{holim}}
+\renewcommand{\fill}{\mathrm{fill}}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\Aut}{\mathrm{Aut}}
+\newcommand{\ob}{{\mathrm{ob}\;}}
+\newcommand{\mor}{{\mathrm{mor}\;}}
+\newcommand{\sus}{\Sigma}
+\newcommand{\op}{^\mathrm{op}}
+\newcommand{\Cyl}{\mathrm{Cyl}}
+\newcommand{\dg}{\mathrm{dg}}
+\newcommand{\colim}{\mathrm{colim}}
+
+%%% Common mathbf commands
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\iv}{\mathbf{I}_\V}
+\newcommand{\iw}{\mathbf{I}_\W}
+
+%%% Common mathbb commands
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\I}{\mathbb{I}}
+\renewcommand{\H}{\mathbb{H}}
+\newcommand{\K}{\mathbb{K}}
+
+\newcommand{\T}{\mathcal{T}}
+\renewcommand{\S}{\mathcal{S}}
+
+\newcommand{\iso}{J_1}
+
+\newcommand{\eps}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+
+%%% Font for all specific categories
+\newcommand{\specificcatfont}{\mathrm}
+
+%%% Font for all general categories
+\newcommand{\variablecatfont}{\mathcal}
+
+%%% Font for functors
+\newcommand{\functorfont}{\mathrm}
+
+%%% Generic category variables
+\newcommand{\C}{\variablecatfont{C}}
+\newcommand{\B}{\variablecatfont{B}}
+\newcommand{\D}{\variablecatfont{D}}
+\newcommand{\V}{\variablecatfont{V}}
+\newcommand{\W}{\variablecatfont{W}}
+\newcommand{\A}{\variablecatfont{A}}
+\renewcommand{\P}{\variablecatfont{P}}
+\newcommand{\M}{\variablecatfont{M}}
+\newcommand{\vcat}{\V\text{-}\cat}
+\newcommand{\wcat}{\W\text{-}\cat}
+\newcommand{\bcat}{\B\text{-}\cat}
+\newcommand{\vgraph}{\V\text{-}\specificcatfont{Graph}}
+
+%%% Particular category names
+\newcommand{\cat}{\specificcatfont{Cat}}
+\newcommand{\ch}{\specificcatfont{Ch}}
+\newcommand{\chbasic}{\ch_{\ge 0}(\mathbb{Z})}
+\newcommand{\model}{\specificcatfont{ModCat}}
+ 
+\newcommand{\Top}{\specificcatfont{Top}}
+\newcommand{\Set}{\specificcatfont{Set}}
+\newcommand{\set}{\Set}
+\newcommand{\gp}{\specificcatfont{Group}}
+\newcommand{\sset}{\specificcatfont{sSet}}
+\newcommand{\stinfty}{\omega\specificcatfont{Gpd}}
+\newcommand{\algkan}{\specificcatfont{AlgKan}}
+\newcommand{\stcom}{\specificcatfont{sTCom}}
+\newcommand{\crcom}{\specificcatfont{CrCom}}
+\newcommand{\sabgroup}{\specificcatfont{sAbGrp}}
+\newcommand{\qsset}{\specificcatfont{sSet}}
+\newcommand{\qstcom}{\specificcatfont{sTCom}}
+\newcommand{\gpd}{\specificcatfont{Gpd}}
+% Note the below mediocre notation choice.
+\newcommand{\chgpd}{{\ch}}
+\newcommand{\chaug}{\ch_{*}}
+\newcommand{\dgalg}{\specificcatfont{dgAlg}}
+\newcommand{\dgalgaug}{\specificcatfont{dgAlg}_*}
+\newcommand{\chbasicaug}{{\chbasic}_*}
+
+
+
+%%% newer categories (this paper)
+\newcommand{\omegacat}{\omega\specificcatfont{Cat}}
+\newcommand{\omegancat}[1]{(\omega,#1)\specificcatfont{Cat}}
+\newcommand{\inftyncat}[1]{(\infty,#1)\specificcatfont{Cat}}
+\newcommand{\graycat}[1]{((\omega, #1)\specificcatfont{Cat})^\otimes\text{-}\specificcatfont{Cat}}
+\newcommand{\cartesiancat}[1]{((\omega, #1)\specificcatfont{Cat})^\times\text{-}\specificcatfont{Cat}}
+\newcommand{\graycatzero}{(\stinfty)^\otimes\specificcatfont{Cat}}
+\newcommand{\cartesiancatzero}{(\stinfty)^\times\specificcatfont{Cat}}
+
+\newcommand{\cartcrossedcat}{\crcom^\times\text{-}\specificcatfont{Cat}}
+\newcommand{\tensorcrossedcat}{\crcom^\otimes\text{-}\specificcatfont{Cat}}
+\newcommand{\tencart}[1]{\underline{#1}}
+\newcommand{\gpdcat}{\specificcatfont{Gpd}\text{-}\specificcatfont{Cat}}
+\newcommand{\trackdgcat}{{{\chgpd}^{\otimes}\text{-}\cat}}
+\newcommand{\trackchaincat}{{{\chgpd}^{\times}\text{-}\cat}}
+\newcommand{\trackchaingraph}{{{\chgpd}\text{-}\specificcatfont{Graph}}}
+\newcommand{\trackdgcataug}{{\chaug^{\otimes}\text{-}\cat}}
+\newcommand{\trackchaincataug}{{{\chaug}^{\times}\text{-}\cat}}
+\newcommand{\joyal}{\specificcatfont{sSet}_{\specificcatfont{J}}}
+\newcommand{\bergner}{(\specificcatfont{sSet})-\text{Cat}_{\specificcatfont{B}}}
+\newcommand{\ssetcat}{\specificcatfont{sSet}\text{-}\specificcatfont{Cat}}
+
+%%% Functors 
+
+% Generic
+\newcommand{\F}{\functorfont{F}}
+\newcommand{\G}{\functorfont{G}}
+\newcommand{\lcat}{\functorfont{L}^{\cat}}
+\newcommand{\rcat}{\functorfont{R}^{\cat}}
+
+% Particular
+\newcommand{\stalg}{\functorfont{St}_{\functorfont{Alg}}}
+\newcommand{\ualg}{\functorfont{U}_{\functorfont{Alg}}}
+\newcommand{\st}{\functorfont{St}}
+\newcommand{\ust}{\functorfont{U}_{\st}}
+\newcommand{\Tot}{\functorfont{Tot}}
+\newcommand{\abtcom}{\functorfont{Ab}_{\functorfont{sT}}}
+\newcommand{\utcom}{\functorfont{U}_{\functorfont{sT}}}
+\newcommand{\abcomplex}{\functorfont{Ab}_{\functorfont{Cr}}}
+\newcommand{\ucomplex}{\functorfont{U}_{\functorfont{Cr}}}
+\newcommand{\doldnormalizer}{\functorfont{N}_\mathbb{Z}}
+\newcommand{\doldsset}{\Gamma_\mathbb{Z}}
+\newcommand{\nonabdoldnormalizer}{\functorfont{N}_{\crcom}}
+\newcommand{\nonabdoldsset}{\Gamma_{\crcom}}
+\newcommand{\tz}{\tilde{\mathbb{Z}}}
+\newcommand{\tabcomplex}{\tilde{\functorfont{Ab}}_{\functorfont{Cr}}}
+\newcommand{\freecoalg}{\functorfont{F}_{\st}}
+\newcommand{\chainification}{{\nabla}}
+\newcommand{\crossification}{{\Theta}}
+
+\newcommand{\strictification}[1]{\functorfont{St}_{#1}}
+\newcommand{\ninclusion}[1]{U_{#1}}
+\newcommand{\omegannerve}[1]{N_{(\omega,#1)}}
+\newcommand{\omeganrigidification}[1]{C_{(\omega,#1)}}
+
+\newcommand{\forgetcartesian}{R}
+\newcommand{\forcecartesian}{L}
+\newcommand{\leftone}{\st^{\functorfont{loc}}}
+\newcommand{\rightone}{U^{\functorfont{loc}}}
+\newcommand{\lefttwo}{\st^{\functorfont{glo}}}
+\newcommand{\righttwo}{U^{\functorfont{glo}}}
+\newcommand{\dgbarconstruction}{{\st^{\functorfont{glo}}_\ch}}
+\newcommand{\dgbaradjoint}{{U^{\functorfont{glo}}_\ch}}
+\newcommand{\takeapart}{\lambda}
+\newcommand{\puttogether}{\gamma}
+\newcommand{\funnytensor}[1]{{\boxtimes^{#1}}}
+
+\newcommand{\hotwo}{\Ho_{(2,1)}}
+\newcommand{\del}{\partial}
+\newcommand{\catfunctor}[1]{{#1}^{\functorfont{cat}}}
+
+\newcommand{\tiv}{{\T(\iv)}}
+\newcommand{\miv}{{\mathcal{M}(\iv)}}
+\newcommand{\ov}{\otimes_\mathcal{V}}
+\newcommand{\ow}{\otimes_\mathcal{W}}
+
+%%% Colors for diagrams
+\definecolor{diagrambrown}{RGB}{155,97,39}
+\definecolor{diagrampurple}{RGB}{153,92,214}
+\definecolor{diagramgreen}{RGB}{37,147,37}
+
+%%% diagrams
+\newcommand{\adjunctiondiagram}[4]{
+\begin{center}
+\begin{tikzcd}[ampersand replacement=\&]
+	{#2} \ar[r, "{#1}", bend left = 15]
+		\& {#3} \ar[l, "{#4}", bend left = 15]
+\end{tikzcd}
+\end{center}
+}
